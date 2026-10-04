@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080a0f">
+  <title>NoxVolt — NOXV Rewards</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080a0f;--panel:#11151e;--panel2:#171d28;--line:#293241;--muted:#9ba7b8;--gold:#ffd33d;--gold2:#ffad21;--text:#f5f7fb;--green:#6ee7ae;--blue:#67c5ff}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#4d3813 0,transparent 48%),var(--bg);color:var(--text);font:15px/1.48 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input{font:inherit}button{color:inherit;cursor:pointer}.app{max-width:480px;min-height:100vh;margin:auto;padding:18px 16px 106px}.top{display:flex;align-items:center;justify-content:space-between;margin:3px 1px 20px}.brand{display:flex;align-items:center;gap:10px}.brand img{width:42px;height:42px;border-radius:50%;border:1px solid #6b581d;object-fit:cover}.brand b{display:block;letter-spacing:.09em;font-size:14px}.brand small{font-size:11px;color:var(--muted)}.wallet{padding:9px 13px;background:#171d27;border:1px solid #364152;border-radius:999px;font-size:12px}.screen{display:none;animation:appear .18s ease}.screen.active{display:block}@keyframes appear{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.hero{padding:22px 18px;text-align:center;border-radius:23px;border:1px solid #58471b;background:linear-gradient(145deg,#211b0e,#11151d 68%);box-shadow:0 16px 44px #0006}.eyebrow{font-size:11px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}.balance{font-size:43px;line-height:1.16;font-weight:850;letter-spacing:-.055em;margin:7px 0 2px}.balance span{font-size:16px;letter-spacing:0;color:var(--gold)}.muted{color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 20px}.stat,.card{border:1px solid var(--line);background:linear-gradient(145deg,#141923,#10141b);border-radius:17px;padding:14px}.stat small{display:block;color:var(--muted);font-size:12px}.stat b{font-size:16px}.heading{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}.heading h1,.heading h2{font-size:19px;margin:0}.heading small{color:var(--muted);font-size:12px}.row{display:flex;align-items:center;gap:12px}.icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;color:var(--gold);font-size:20px;background:#30250e;border:1px solid #59451a}.grow{flex:1;min-width:0}.grow b{display:block}.grow small{color:var(--muted);font-size:12px}.reward{color:var(--green);font-size:13px;font-weight:800;white-space:nowrap}.btn{width:100%;border:0;border-radius:13px;padding:13px 16px;margin-top:13px;background:linear-gradient(105deg,var(--gold2),var(--gold));color:#171208;font-weight:850;box-shadow:0 6px 22px #ffbf2821}.btn.secondary{background:#1b2330;border:1px solid #344154;color:#eff4fb;box-shadow:none}.btn:disabled{opacity:.55;cursor:default}.pill{border:1px solid #374253;background:#1b2230;border-radius:999px;color:#dae3ee;padding:6px 10px;font-size:11px}.notice{padding:12px 13px;margin-top:13px;border:1px solid #303949;border-radius:13px;background:#121720;color:var(--muted);font-size:12px}.notice strong{color:#f3d987}.task-item{padding:13px 0;border-bottom:1px solid var(--line)}.task-item:last-child{border-bottom:0;padding-bottom:0}.task-state{font-size:11px;color:var(--blue);margin-top:5px}.progress{height:8px;border-radius:99px;background:#293241;overflow:hidden;margin:12px 0}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:inherit;transition:width .4s}.big-number{text-align:center;font-size:32px;font-weight:800;color:var(--gold);margin:8px}.tabs{position:fixed;z-index:5;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(6,1fr);padding:9px 7px calc(9px + env(safe-area-inset-bottom));background:#0c0f15f2;backdrop-filter:blur(15px);border-top:1px solid #29313d}.tab{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;color:#929eaf;font-size:10px;padding:5px 1px}.tab span:first-child{font-size:19px;line-height:1.1}.tab.active{color:var(--gold)}.toast{position:fixed;z-index:9;left:50%;bottom:91px;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#222b38;border:1px solid #3a485a;border-radius:12px;padding:11px 14px;transition:.2s;text-align:center;max-width:calc(100vw - 32px);font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}.field{width:100%;padding:12px;border-radius:12px;border:1px solid #343e4d;background:#0c1017;color:var(--text);outline:none}.field:focus{border-color:#9a7a23}.ref-link{word-break:break-all;color:var(--blue);font-size:12px;padding:10px;border-radius:10px;background:#0d1219;border:1px solid #293342;margin-top:10px}
+    @media(min-width:700px){body{padding:20px 0}.app{min-height:calc(100vh - 40px);border:1px solid #202735;border-radius:26px;background:#0b0e14;padding-top:23px}.tabs{bottom:20px;border:1px solid #29313d;border-radius:0 0 25px 25px}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top"><div class="brand"><img src="logo.png" alt="NoxVolt"><div><b>NOXVOLT</b><small>Rewards on TON</small></div></div><button class="wallet" id="wallet">Connect Wallet</button></header>
+
+    <section class="screen active" id="watch-screen">
+      <div class="hero"><div class="eyebrow">Your NOXV balance</div><div class="balance"><span id="balance">0</span> <span>NOXV</span></div><div class="muted">Earn rewards by watching sponsored ads</div></div>
+      <div class="stats"><div class="stat"><small>Today's rewards</small><b id="today">0 NOXV</b></div><div class="stat"><small>Ads watched today</small><b id="ads-watched">0</b></div></div>
+      <div class="heading"><h1>Watch &amp; Earn</h1><small>10 NOXV per ad</small></div>
+      <article class="card"><div class="row"><div class="icon">▶</div><div class="grow"><b>Watch a sponsored ad</b><small>Complete one ad to receive a reward</small></div><div class="reward">+10 NOXV</div></div><button class="btn" id="watch-ad">Watch Ad · Earn 10 NOXV</button></article>
+      <div class="notice"><strong>Preview only:</strong> the ad and reward are simulated. The app has no daily ad cap. A real ad provider may have its own serving limits. Real ad delivery, fraud checks and on-chain payouts need a secure backend and an ad provider.</div>
+    </section>
+
+    <section class="screen" id="tasks-screen">
+      <div class="heading"><h1>Tasks</h1><small>Join channels · Earn 1 NOXV</small></div>
+      <div class="card" id="tasks-list"></div>
+      <div class="notice"><strong>Tasks are owner-managed.</strong> Users cannot submit or publish tasks in this app. Add approved channel links in the <code>NOXV_TASKS</code> list in this page's code. Membership verification and rewards need a Telegram bot/backend before launch.</div>
+    </section>
+
+    <section class="screen" id="mining-screen">
+      <div class="heading"><h1>Mining</h1><small>15 NOXV per hour</small></div>
+      <div class="card" style="text-align:center;padding:22px 17px"><div class="eyebrow">Current session</div><div class="big-number" id="mined">0.00 NOXV</div><div class="muted" id="mine-status">Start a session, then come back to reactivate it every hour.</div><div class="progress"><span id="mine-progress"></span></div><div class="muted" id="time-left">Hourly reward: 15 NOXV</div><button class="btn" id="mine-btn">Start Mining</button></div>
+      <div class="notice">Mining is a timed app reward preview, not blockchain mining. This demo timer runs only while this page is open; a backend is needed to enforce real sessions and prevent clock manipulation.</div>
+    </section>
+
+    <section class="screen" id="withdraw-screen">
+      <div class="heading"><h1>Withdraw</h1><small>Minimum: 500 NOXV</small></div>
+      <div class="card"><div class="row"><div class="icon">⇧</div><div class="grow"><small>Available balance</small><b><span id="withdraw-balance">0</span> NOXV</b></div></div><label class="muted" for="withdraw-amount" style="display:block;margin:18px 0 7px">Amount to withdraw</label><input class="field" id="withdraw-amount" type="number" min="500" placeholder="500 or more"><label class="muted" for="withdraw-address" style="display:block;margin:14px 0 7px">TON wallet address</label><input class="field" id="withdraw-address" placeholder="TON wallet address"><button class="btn" id="withdraw-btn">Request Withdrawal</button></div>
+      <div class="notice"><strong>TON network:</strong> NOXV is a TON Jetton. Withdrawals will use a TON wallet address, with a 500 NOXV minimum. Payouts are disabled in this preview until wallet verification and a secure rewards backend are implemented.</div>
+    </section>
+
+    <section class="screen" id="referrals-screen">
+      <div class="heading"><h1>Referrals</h1><small>Invite friends</small></div>
+      <div class="hero"><div class="eyebrow">Referral reward</div><div class="balance" style="font-size:36px">50 <span>NOXV</span></div><div class="muted">Earn when your friend watches 10 ads</div></div>
+      <div class="stats"><div class="stat"><small>Successful referrals</small><b id="ref-count">0</b></div><div class="stat"><small>Referral earnings</small><b id="ref-earned">0 NOXV</b></div></div>
+      <div class="card"><b>Your referral link</b><div class="ref-link" id="ref-link">Generating…</div><button class="btn secondary" id="copy-ref">Copy Referral Link</button></div>
+      <div class="notice">Referral progress shown here is sample data. Real unique accounts, ad counts and one-time rewards must be checked on a backend to prevent self-referrals and fake claims.</div>
+    </section>
+
+    <section class="screen" id="about-screen">
+      <div class="heading"><h1>About NoxVolt</h1><small>NOXV · TON Jetton</small></div>
+      <div class="hero" style="text-align:left"><div class="eyebrow">The project</div><p style="margin:9px 0 0">NoxVolt is a TON-based token project planned around a mini app with community tasks, referral rewards, and sponsored ad activities. App rewards and features are subject to launch and eligibility rules.</p></div>
+      <div class="heading"><h2>Token information</h2></div>
+      <div class="stats"><div class="stat"><small>Token symbol</small><b>NOXV</b></div><div class="stat"><small>Currently minted</small><b>100,000,000 NOXV</b></div></div>
+      <article class="card"><div class="eyebrow">Market information</div><p style="margin:8px 0 0"><b>Current market price: $0</b></p><div class="muted">NOXV is not currently listed on an exchange, so there is no active market price.</div></article>
+      <article class="card" style="margin-top:11px"><div class="eyebrow">Planned exchange applications</div><p style="margin:8px 0 0">We plan to apply for listings on <b>DeDust</b> and <b>STON.fi</b>. NOXV swaps may become available if a listing is accepted and liquidity is established. Listing and trading availability are not guaranteed.</p></article>
+      <div class="notice">The token's displayed price and future listings are not promises of value or returns. Always verify the official NOXV Jetton contract address before interacting with a token.</div>
+    </section>
+
+    <nav class="tabs" aria-label="Main navigation">
+      <button class="tab active" data-tab="watch"><span>▶</span><span>Watch</span></button><button class="tab" data-tab="tasks"><span>▣</span><span>Tasks</span></button><button class="tab" data-tab="mining"><span>ϟ</span><span>Mining</span></button><button class="tab" data-tab="withdraw"><span>⇧</span><span>Withdraw</span></button><button class="tab" data-tab="referrals"><span>♧</span><span>Referrals</span></button><button class="tab" data-tab="about"><span>ⓘ</span><span>About</span></button>
+    </nav>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    const NOXV_TASKS = [
+      // Add tasks here, for example:
+      // { title: "Join NoxVolt News", description: "Join our Telegram channel", url: "https://t.me/your_channel" }
+    ];
+    const $=s=>document.querySelector(s);let balance=0,today=0,adsWatched=0,mineStarted=0,mineTick=null;
+    const toast=$('#toast');function say(t){toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2800)}
+    function setBalance(){ $('#balance').textContent=balance.toFixed(balance%1?2:0);$('#today').textContent=`${today} NOXV`;$('#ads-watched').textContent=adsWatched;$('#withdraw-balance').textContent=balance.toFixed(balance%1?2:0) }
+    document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===`${b.dataset.tab}-screen`))}));
+    $('#wallet').addEventListener('click',()=>say('TON Connect is not configured in this preview.'));
+    $('#watch-ad').addEventListener('click',e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Playing demo ad…';setTimeout(()=>{balance+=10;today+=10;adsWatched+=1;setBalance();b.disabled=false;b.textContent='Watch Ad · Earn 10 NOXV';say('Demo reward: +10 NOXV');},1800)});
+    const tasks=NOXV_TASKS;$('#tasks-list').innerHTML=tasks.length?tasks.map((t,i)=>`<div class="task-item"><div class="row"><div class="icon">＋</div><div class="grow"><b>${escapeHtml(t.title)}</b><small>${escapeHtml(t.description||'Join the Telegram channel')}</small><div class="task-state">Reward: 1 NOXV · Join and verify</div></div><span class="reward">+1</span></div><button class="btn secondary" data-task="${i}">Open Channel</button></div>`).join(''):'<div class="muted">No channel tasks have been added yet.</div>';
+    function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+    $('#tasks-list').addEventListener('click',e=>{const b=e.target.closest('[data-task]');if(!b)return;const t=tasks[Number(b.dataset.task)];if(t?.url)window.open(t.url,'_blank','noopener');say('Channel opened. Membership verification is not active in this preview.')});
+    $('#mine-btn').addEventListener('click',e=>{if(mineStarted){mineStarted=0;clearInterval(mineTick);mineTick=null;e.currentTarget.textContent='Start Mining';$('#mine-status').textContent='Session paused. Start a new session when you are ready.';$('#mined').textContent='0.00 NOXV';$('#mine-progress').style.width='0%';return}mineStarted=Date.now();const end=mineStarted+3600000;e.currentTarget.textContent='Stop Session';$('#mine-status').textContent='Mining session active — return when the hour is complete.';mineTick=setInterval(()=>{const now=Date.now(),elapsed=Math.min(now-mineStarted,3600000),amount=15*elapsed/3600000;$('#mined').textContent=`${amount.toFixed(2)} NOXV`;$('#mine-progress').style.width=`${elapsed/36000}%`;$('#time-left').textContent=elapsed>=3600000?'Hour complete · Reactivate to continue':`${Math.ceil((end-now)/60000)} min remaining`;if(elapsed>=3600000){balance+=15;today+=15;setBalance();clearInterval(mineTick);mineTick=null;mineStarted=0;$('#mine-btn').textContent='Reactivate Mining';$('#mine-status').textContent='15 NOXV demo reward added. Start another session to continue.';$('#mined').textContent='15.00 NOXV';say('Mining demo complete: +15 NOXV')}},1000)});
+    $('#withdraw-btn').addEventListener('click',()=>say('Withdrawals are disabled until the token network and backend are set up.'));
+    let uid=localStorage.getItem('noxv-demo-id');if(!uid){uid='NV'+Math.random().toString(36).slice(2,9).toUpperCase();localStorage.setItem('noxv-demo-id',uid)}const ref=`${location.origin}${location.pathname}?ref=${uid}`;$('#ref-link').textContent=ref;$('#copy-ref').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(ref);say('Referral link copied.')}catch{say('Copy the referral link above.')}});setBalance();
+  </script>
+</body>
+</html>
