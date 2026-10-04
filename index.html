@@ -37,9 +37,9 @@
   </main>
   <div class="toast" id="toast" role="status"></div>
   <script>
-    // Paste your Supabase Project URL and PUBLISHABLE/anon key here. Never put service_role or bot token here.
-    const SUPABASE_URL = "https://YOUR-PROJECT-REF.supabase.co";
-    const SUPABASE_PUBLISHABLE_KEY = "YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+    // Supabase project URL and PUBLISHABLE key — service_role/bot token yahan kabhi na daalo.
+    const SUPABASE_URL = "https://phyqkohgvzvmgawjzyia.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq";
     const EDGE_FUNCTION = "noxvolt-api";
     const $ = (s) => document.querySelector(s);
     const tg = window.Telegram?.WebApp;
@@ -50,7 +50,7 @@
     function amount(v){return Number(v||0).toLocaleString(undefined,{maximumFractionDigits:4})}
     async function api(action,payload={}){
       if(!initData)throw new Error('Open this mini app from your Telegram bot.');
-      if(SUPABASE_URL.includes('YOUR-PROJECT')||SUPABASE_PUBLISHABLE_KEY.includes('YOUR_'))throw new Error('Add your Supabase project URL and publishable key in the code first.');
+      if(SUPABASE_URL.includes('YOUR-PROJECT')||SUPABASE_PUBLISHABLE_KEY.includes('PASTE_YOUR'))throw new Error('Add your Supabase project URL and publishable key in the code first.');
       const response=await fetch(`${SUPABASE_URL}/functions/v1/${EDGE_FUNCTION}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify({action,initData,payload})});
       const data=await response.json().catch(()=>({}));if(!response.ok||data.ok===false)throw new Error(data.error||`Server request failed (${response.status})`);return data;
     }
