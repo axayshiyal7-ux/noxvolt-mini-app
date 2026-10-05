@@ -4,6 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080a0f">
   <title>NoxVolt — NOXV Rewards</title>
   <script src="https://telegram.org/js/telegram-web-app.js?63"></script>
+  <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
   <style>
     :root{color-scheme:dark;--bg:#080a0f;--line:#293241;--muted:#9ba7b8;--gold:#ffd33d;--gold2:#ffad21;--text:#f5f7fb;--green:#6ee7ae;--blue:#67c5ff;--red:#ff6b6b}
     *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#4d3813 0,transparent 48%),var(--bg);color:var(--text);font:15px/1.48 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input{font:inherit}button{color:inherit;cursor:pointer}.app{max-width:480px;min-height:100vh;margin:auto;padding:18px 16px 106px}.top{display:flex;align-items:center;justify-content:space-between;margin:3px 1px 20px}.brand{display:flex;align-items:center;gap:10px}.brand img{width:42px;height:42px;border-radius:50%;border:1px solid #6b581d;object-fit:cover}.brand b{display:block;letter-spacing:.09em;font-size:14px}.brand small{font-size:11px;color:var(--muted)}.wallet{padding:9px 13px;background:#171d27;border:1px solid #364152;border-radius:999px;font-size:12px}.screen{display:none;animation:appear .18s ease}.screen.active{display:block}@keyframes appear{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.hero{padding:22px 18px;text-align:center;border-radius:23px;border:1px solid #58471b;background:linear-gradient(145deg,#211b0e,#11151d 68%);box-shadow:0 16px 44px #0006}.eyebrow{font-size:11px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}.balance{font-size:39px;line-height:1.16;font-weight:850;letter-spacing:-.045em;margin:7px 0 2px;overflow-wrap:anywhere}.balance span{font-size:15px;letter-spacing:0;color:var(--gold)}.muted{color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 20px}.stat,.card{border:1px solid var(--line);background:linear-gradient(145deg,#141923,#10141b);border-radius:17px;padding:14px}.stat small{display:block;color:var(--muted);font-size:12px}.stat b{font-size:15px}.heading{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}.heading h1,.heading h2{font-size:19px;margin:0}.heading small{color:var(--muted);font-size:12px}.row{display:flex;align-items:center;gap:12px}.icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;color:var(--gold);font-size:20px;background:#30250e;border:1px solid #59451a}.grow{flex:1;min-width:0}.grow b{display:block}.grow small{color:var(--muted);font-size:12px}.reward{color:var(--green);font-size:13px;font-weight:800;white-space:nowrap}.btn{width:100%;border:0;border-radius:13px;padding:13px 16px;margin-top:13px;background:linear-gradient(105deg,var(--gold2),var(--gold));color:#171208;font-weight:850;box-shadow:0 6px 22px #ffbf2821}.btn.secondary{background:#1b2330;border:1px solid #344154;color:#eff4fb;box-shadow:none}.btn.danger{background:linear-gradient(105deg,#e74c3c,#c0392b);color:#fff}.btn.success{background:linear-gradient(105deg,#2ecc71,#27ae60);color:#0a0a0a}.btn:disabled{opacity:.5;cursor:not-allowed}.notice{padding:12px 13px;margin-top:13px;border:1px solid #303949;border-radius:13px;background:#121720;color:var(--muted);font-size:12px}.notice strong{color:#f3d987}.task-item{padding:13px 0;border-bottom:1px solid var(--line)}.task-item:last-child{border-bottom:0;padding-bottom:0}.progress{height:8px;border-radius:99px;background:#293241;overflow:hidden;margin:12px 0}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:inherit;transition:width .4s}.big-number{text-align:center;font-size:29px;font-weight:800;color:var(--gold);margin:8px;overflow-wrap:anywhere}.tabs{position:fixed;z-index:5;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(6,1fr);padding:9px 7px calc(9px + env(safe-area-inset-bottom));background:#0c0f15f2;backdrop-filter:blur(15px);border-top:1px solid #29313d}.tabs.admin-mode{grid-template-columns:repeat(7,1fr)}.tab{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;color:#929eaf;font-size:10px;padding:5px 1px}.tab span:first-child{font-size:19px;line-height:1.1}.tab.active{color:var(--gold)}.tab.hidden{display:none}.toast{position:fixed;z-index:9;left:50%;bottom:91px;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#222b38;border:1px solid #3a485a;border-radius:12px;padding:11px 14px;transition:.2s;text-align:center;max-width:calc(100vw - 32px);font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}.field{width:100%;padding:12px;border-radius:12px;border:1px solid #343e4d;background:#0c1017;color:var(--text);outline:none}.field:focus{border-color:#9a7a23}.ref-link{word-break:break-all;color:var(--blue);font-size:12px;padding:10px;border-radius:10px;background:#0d1219;border:1px solid #293342;margin-top:10px}.hidden{display:none!important}.wd-item{border:1px solid var(--line);background:#11151d;border-radius:12px;padding:12px;margin-bottom:10px}.wd-item .row{margin-bottom:6px}.wd-meta{font-size:12px;color:var(--muted);word-break:break-all}.wd-status{padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}.wd-status.pending{background:#ffd33d22;color:var(--gold)}.wd-status.paid{background:#2ecc7122;color:var(--green)}.wd-status.rejected{background:#e74c3c22;color:var(--red)}.contract{font-family:monospace;font-size:11px;color:var(--blue);padding:9px;background:#0d1219;border:1px solid #293342;border-radius:9px;margin-top:8px;word-break:break-all}
@@ -131,6 +132,10 @@
     const SUPABASE_URL = "https://phyqkohgvzvmgawjzyia.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq";
     const EDGE_FUNCTION = "noxvolt-api";
+
+    // ✅ AdsGram Block ID
+    const ADSGRAM_BLOCK_ID = "52052";
+
     const $ = (s) => document.querySelector(s);
     const tg = window.Telegram?.WebApp;
     let initData = "", current = null, isAdmin = false;
@@ -242,26 +247,59 @@
       $('#task-title').value='';$('#task-description').value='';$('#task-url').value='';
     });
     $('#copy-ref').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#ref-link').textContent);say('Referral link copied.')}catch{say('Select and copy your referral link.')}});
+
+    // ============ ADSGRAM INTEGRATION ============
     function updateAdButton(){
-      const ready=typeof window.NOXV_ADS?.showRewarded==='function';
-      const button=$('#watch-ad');
-      button.disabled=!ready;
-      button.textContent=ready?'Watch Ad · Earn 10 NOXV':'Ads Not Connected';
+      const ready = typeof window.NOXV_ADS?.showRewarded === 'function';
+      const button = $('#watch-ad');
+      button.disabled = !ready;
+      button.textContent = ready ? 'Watch Ad · Earn 10 NOXV' : 'Ads Not Connected';
     }
-    window.addEventListener('noxvolt-ads-ready',updateAdButton);
-    $('#watch-ad').addEventListener('click',async()=>{
-      if(typeof window.NOXV_ADS?.showRewarded!=='function')return;
-      try{
-        const session=await api('ad_start');
-        const result=await window.NOXV_ADS.showRewarded({sessionId:session.session_id});
-        if(!result?.completed||!result?.receipt)return say('Ad was not completed; no NOXV added.');
-        await act('ad_confirm',{session_id:session.session_id,provider_receipt:result.receipt},'Ad verified. Reward added.');
-      }catch(e){say(e.message)}
+    window.addEventListener('noxvolt-ads-ready', updateAdButton);
+
+    function initAdsGram() {
+      if (!window.Adsgram) {
+        console.warn("AdsGram SDK not loaded");
+        return;
+      }
+      try {
+        const AdController = window.Adsgram.init({ blockId: ADSGRAM_BLOCK_ID });
+        window.NOXV_ADS = {
+          showRewarded: async ({ sessionId }) => {
+            try {
+              await AdController.show();
+              return {
+                completed: true,
+                receipt: `adsgram-${sessionId}-${Date.now()}`
+              };
+            } catch (e) {
+              console.warn("Ad skipped or failed:", e);
+              return { completed: false };
+            }
+          }
+        };
+        window.dispatchEvent(new Event("noxvolt-ads-ready"));
+        console.log("✅ AdsGram ready with block", ADSGRAM_BLOCK_ID);
+      } catch (e) {
+        console.error("AdsGram init failed:", e);
+      }
+    }
+
+    $('#watch-ad').addEventListener('click', async () => {
+      if (typeof window.NOXV_ADS?.showRewarded !== 'function') return;
+      try {
+        const session = await api('ad_start');
+        const result = await window.NOXV_ADS.showRewarded({ sessionId: session.session_id });
+        if (!result?.completed || !result?.receipt) return say('Ad was not completed; no NOXV added.');
+        await act('ad_confirm', { session_id: session.session_id, provider_receipt: result.receipt }, 'Ad verified. Reward added.');
+      } catch (e) { say(e.message); }
     });
+
     async function boot(){
       tg?.ready();tg?.expand();
       initData=tg?.initData||'';
       if(!initData){showMessage('Open this page inside Telegram using your bot\'s Mini App button.',true);$('#watch-ad').disabled=true;return}
+      setTimeout(initAdsGram, 800);
       try{await refresh()}catch(e){showMessage(e.message,true)}
     }
     boot();
