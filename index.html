@@ -5,14 +5,14 @@
   <title>NoxVolt — NOXV Rewards</title>
   <script src="https://telegram.org/js/telegram-web-app.js?63"></script>
   <style>
-    :root{color-scheme:dark;--bg:#080a0f;--line:#293241;--muted:#9ba7b8;--gold:#ffd33d;--gold2:#ffad21;--text:#f5f7fb;--green:#6ee7ae;--blue:#67c5ff}
-    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#4d3813 0,transparent 48%),var(--bg);color:var(--text);font:15px/1.48 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input{font:inherit}button{color:inherit;cursor:pointer}.app{max-width:480px;min-height:100vh;margin:auto;padding:18px 16px 106px}.top{display:flex;align-items:center;justify-content:space-between;margin:3px 1px 20px}.brand{display:flex;align-items:center;gap:10px}.brand img{width:42px;height:42px;border-radius:50%;border:1px solid #6b581d;object-fit:cover}.brand b{display:block;letter-spacing:.09em;font-size:14px}.brand small{font-size:11px;color:var(--muted)}.wallet{padding:9px 13px;background:#171d27;border:1px solid #364152;border-radius:999px;font-size:12px}.screen{display:none;animation:appear .18s ease}.screen.active{display:block}@keyframes appear{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.hero{padding:22px 18px;text-align:center;border-radius:23px;border:1px solid #58471b;background:linear-gradient(145deg,#211b0e,#11151d 68%);box-shadow:0 16px 44px #0006}.eyebrow{font-size:11px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}.balance{font-size:39px;line-height:1.16;font-weight:850;letter-spacing:-.045em;margin:7px 0 2px;overflow-wrap:anywhere}.balance span{font-size:15px;letter-spacing:0;color:var(--gold)}.muted{color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 20px}.stat,.card{border:1px solid var(--line);background:linear-gradient(145deg,#141923,#10141b);border-radius:17px;padding:14px}.stat small{display:block;color:var(--muted);font-size:12px}.stat b{font-size:15px}.heading{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}.heading h1,.heading h2{font-size:19px;margin:0}.heading small{color:var(--muted);font-size:12px}.row{display:flex;align-items:center;gap:12px}.icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;color:var(--gold);font-size:20px;background:#30250e;border:1px solid #59451a}.grow{flex:1;min-width:0}.grow b{display:block}.grow small{color:var(--muted);font-size:12px}.reward{color:var(--green);font-size:13px;font-weight:800;white-space:nowrap}.btn{width:100%;border:0;border-radius:13px;padding:13px 16px;margin-top:13px;background:linear-gradient(105deg,var(--gold2),var(--gold));color:#171208;font-weight:850;box-shadow:0 6px 22px #ffbf2821}.btn.secondary{background:#1b2330;border:1px solid #344154;color:#eff4fb;box-shadow:none}.btn:disabled{opacity:.5;cursor:not-allowed}.notice{padding:12px 13px;margin-top:13px;border:1px solid #303949;border-radius:13px;background:#121720;color:var(--muted);font-size:12px}.notice strong{color:#f3d987}.task-item{padding:13px 0;border-bottom:1px solid var(--line)}.task-item:last-child{border-bottom:0;padding-bottom:0}.progress{height:8px;border-radius:99px;background:#293241;overflow:hidden;margin:12px 0}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:inherit;transition:width .4s}.big-number{text-align:center;font-size:29px;font-weight:800;color:var(--gold);margin:8px;overflow-wrap:anywhere}.tabs{position:fixed;z-index:5;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(6,1fr);padding:9px 7px calc(9px + env(safe-area-inset-bottom));background:#0c0f15f2;backdrop-filter:blur(15px);border-top:1px solid #29313d}.tab{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;color:#929eaf;font-size:10px;padding:5px 1px}.tab span:first-child{font-size:19px;line-height:1.1}.tab.active{color:var(--gold)}.toast{position:fixed;z-index:9;left:50%;bottom:91px;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#222b38;border:1px solid #3a485a;border-radius:12px;padding:11px 14px;transition:.2s;text-align:center;max-width:calc(100vw - 32px);font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}.field{width:100%;padding:12px;border-radius:12px;border:1px solid #343e4d;background:#0c1017;color:var(--text);outline:none}.field:focus{border-color:#9a7a23}.ref-link{word-break:break-all;color:var(--blue);font-size:12px;padding:10px;border-radius:10px;background:#0d1219;border:1px solid #293342;margin-top:10px}.hidden{display:none!important}
+    :root{color-scheme:dark;--bg:#080a0f;--line:#293241;--muted:#9ba7b8;--gold:#ffd33d;--gold2:#ffad21;--text:#f5f7fb;--green:#6ee7ae;--blue:#67c5ff;--red:#ff6b6b}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#4d3813 0,transparent 48%),var(--bg);color:var(--text);font:15px/1.48 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input{font:inherit}button{color:inherit;cursor:pointer}.app{max-width:480px;min-height:100vh;margin:auto;padding:18px 16px 106px}.top{display:flex;align-items:center;justify-content:space-between;margin:3px 1px 20px}.brand{display:flex;align-items:center;gap:10px}.brand img{width:42px;height:42px;border-radius:50%;border:1px solid #6b581d;object-fit:cover}.brand b{display:block;letter-spacing:.09em;font-size:14px}.brand small{font-size:11px;color:var(--muted)}.wallet{padding:9px 13px;background:#171d27;border:1px solid #364152;border-radius:999px;font-size:12px}.screen{display:none;animation:appear .18s ease}.screen.active{display:block}@keyframes appear{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.hero{padding:22px 18px;text-align:center;border-radius:23px;border:1px solid #58471b;background:linear-gradient(145deg,#211b0e,#11151d 68%);box-shadow:0 16px 44px #0006}.eyebrow{font-size:11px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}.balance{font-size:39px;line-height:1.16;font-weight:850;letter-spacing:-.045em;margin:7px 0 2px;overflow-wrap:anywhere}.balance span{font-size:15px;letter-spacing:0;color:var(--gold)}.muted{color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 20px}.stat,.card{border:1px solid var(--line);background:linear-gradient(145deg,#141923,#10141b);border-radius:17px;padding:14px}.stat small{display:block;color:var(--muted);font-size:12px}.stat b{font-size:15px}.heading{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}.heading h1,.heading h2{font-size:19px;margin:0}.heading small{color:var(--muted);font-size:12px}.row{display:flex;align-items:center;gap:12px}.icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;color:var(--gold);font-size:20px;background:#30250e;border:1px solid #59451a}.grow{flex:1;min-width:0}.grow b{display:block}.grow small{color:var(--muted);font-size:12px}.reward{color:var(--green);font-size:13px;font-weight:800;white-space:nowrap}.btn{width:100%;border:0;border-radius:13px;padding:13px 16px;margin-top:13px;background:linear-gradient(105deg,var(--gold2),var(--gold));color:#171208;font-weight:850;box-shadow:0 6px 22px #ffbf2821}.btn.secondary{background:#1b2330;border:1px solid #344154;color:#eff4fb;box-shadow:none}.btn.danger{background:linear-gradient(105deg,#e74c3c,#c0392b);color:#fff}.btn.success{background:linear-gradient(105deg,#2ecc71,#27ae60);color:#0a0a0a}.btn:disabled{opacity:.5;cursor:not-allowed}.notice{padding:12px 13px;margin-top:13px;border:1px solid #303949;border-radius:13px;background:#121720;color:var(--muted);font-size:12px}.notice strong{color:#f3d987}.task-item{padding:13px 0;border-bottom:1px solid var(--line)}.task-item:last-child{border-bottom:0;padding-bottom:0}.progress{height:8px;border-radius:99px;background:#293241;overflow:hidden;margin:12px 0}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:inherit;transition:width .4s}.big-number{text-align:center;font-size:29px;font-weight:800;color:var(--gold);margin:8px;overflow-wrap:anywhere}.tabs{position:fixed;z-index:5;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(6,1fr);padding:9px 7px calc(9px + env(safe-area-inset-bottom));background:#0c0f15f2;backdrop-filter:blur(15px);border-top:1px solid #29313d}.tabs.admin-mode{grid-template-columns:repeat(7,1fr)}.tab{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;color:#929eaf;font-size:10px;padding:5px 1px}.tab span:first-child{font-size:19px;line-height:1.1}.tab.active{color:var(--gold)}.tab.hidden{display:none}.toast{position:fixed;z-index:9;left:50%;bottom:91px;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#222b38;border:1px solid #3a485a;border-radius:12px;padding:11px 14px;transition:.2s;text-align:center;max-width:calc(100vw - 32px);font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}.field{width:100%;padding:12px;border-radius:12px;border:1px solid #343e4d;background:#0c1017;color:var(--text);outline:none}.field:focus{border-color:#9a7a23}.ref-link{word-break:break-all;color:var(--blue);font-size:12px;padding:10px;border-radius:10px;background:#0d1219;border:1px solid #293342;margin-top:10px}.hidden{display:none!important}.wd-item{border:1px solid var(--line);background:#11151d;border-radius:12px;padding:12px;margin-bottom:10px}.wd-item .row{margin-bottom:6px}.wd-meta{font-size:12px;color:var(--muted);word-break:break-all}.wd-status{padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}.wd-status.pending{background:#ffd33d22;color:var(--gold)}.wd-status.paid{background:#2ecc7122;color:var(--green)}.wd-status.rejected{background:#e74c3c22;color:var(--red)}
     @media(min-width:700px){body{padding:20px 0}.app{min-height:calc(100vh - 40px);border:1px solid #202735;border-radius:26px;background:#0b0e14;padding-top:23px}.tabs{bottom:20px;border:1px solid #29313d;border-radius:0 0 25px 25px}}
   </style>
 </head>
 <body>
   <main class="app">
-    <header class="top"><div class="brand"><img src="logo.png" alt="NoxVolt logo"><div><b>NOXVOLT</b><small>Rewards on TON</small></div></div><button class="wallet" id="telegram-user">Telegram</button></header>
+    <header class="top"><div class="brand"><img id="brand-logo" src="logo.png" alt="NoxVolt logo"><div><b>NOXVOLT</b><small>Rewards on TON</small></div></div><button class="wallet" id="telegram-user">Telegram</button></header>
     <div id="app-message" class="notice hidden"></div>
 
     <section class="screen active" id="watch-screen">
@@ -33,42 +33,179 @@
 
     <section class="screen" id="about-screen"><div class="heading"><h1>About NoxVolt</h1><small>NOXV · TON Jetton</small></div><div class="hero" style="text-align:left"><div class="eyebrow">The project</div><p>NoxVolt is a TON token project planned around community tasks, referral rewards and sponsored ads.</p></div><div class="heading"><h2>Token information</h2></div><div class="stats"><div class="stat"><small>Token symbol</small><b>NOXV</b></div><div class="stat"><small>Currently minted</small><b>100,000,000 NOXV</b></div></div><article class="card"><div class="eyebrow">Market information</div><p><b>Current market price: $0</b></p><div class="muted">NOXV is not currently listed, so there is no active market price.</div></article><article class="card" style="margin-top:11px"><div class="eyebrow">Planned listings</div><p>We plan to apply for listings on <b>DeDust</b> and <b>STON.fi</b>. Swaps may become available if listed and liquidity is established. Listing and trading availability are not guaranteed.</p></article></section>
 
-    <nav class="tabs" aria-label="Main navigation"><button class="tab active" data-tab="watch"><span>▶</span><span>Watch</span></button><button class="tab" data-tab="tasks"><span>▣</span><span>Tasks</span></button><button class="tab" data-tab="mining"><span>ϟ</span><span>Mining</span></button><button class="tab" data-tab="withdraw"><span>⇧</span><span>Withdraw</span></button><button class="tab" data-tab="referrals"><span>♧</span><span>Refer</span></button><button class="tab" data-tab="about"><span>ⓘ</span><span>About</span></button></nav>
+    <!-- ADMIN PANEL (sirf admin ko dikhta hai) -->
+    <section class="screen" id="admin-screen">
+      <div class="heading"><h1>⚙️ Admin Panel</h1><small>Withdrawal requests</small></div>
+      <div class="card">
+        <div class="row"><b class="grow">Pending &amp; Recent Requests</b><button class="btn secondary" id="refresh-wd" style="width:auto;margin:0;padding:7px 12px;font-size:12px">Refresh</button></div>
+        <div id="withdrawal-list" style="margin-top:12px"><div class="muted">Loading…</div></div>
+      </div>
+      <div class="notice"><strong>How it works:</strong> Approve karke manually apne TON wallet se NOXV bhejo. Reject karne pe user ka balance turant refund ho jayega.</div>
+    </section>
+
+    <nav class="tabs" id="main-tabs" aria-label="Main navigation">
+      <button class="tab active" data-tab="watch"><span>▶</span><span>Watch</span></button>
+      <button class="tab" data-tab="tasks"><span>▣</span><span>Tasks</span></button>
+      <button class="tab" data-tab="mining"><span>ϟ</span><span>Mining</span></button>
+      <button class="tab" data-tab="withdraw"><span>⇧</span><span>Withdraw</span></button>
+      <button class="tab" data-tab="referrals"><span>♧</span><span>Refer</span></button>
+      <button class="tab" data-tab="about"><span>ⓘ</span><span>About</span></button>
+      <button class="tab hidden" data-tab="admin" id="admin-tab"><span>⚙</span><span>Admin</span></button>
+    </nav>
   </main>
   <div class="toast" id="toast" role="status"></div>
   <script>
-    // Supabase project URL and PUBLISHABLE key — service_role/bot token yahan kabhi na daalo.
+    // Supabase project URL and PUBLISHABLE key
     const SUPABASE_URL = "https://phyqkohgvzvmgawjzyia.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq";
     const EDGE_FUNCTION = "noxvolt-api";
     const $ = (s) => document.querySelector(s);
     const tg = window.Telegram?.WebApp;
-    let initData = "", current = null;
+    let initData = "", current = null, isAdmin = false;
     const toast = $('#toast');
     function say(text){toast.textContent=text;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2800)}
     function showMessage(text,error=false){const box=$('#app-message');box.textContent=text;box.classList.remove('hidden');box.style.borderColor=error?'#9b4242':''}
     function amount(v){return Number(v||0).toLocaleString(undefined,{maximumFractionDigits:4})}
     async function api(action,payload={}){
       if(!initData)throw new Error('Open this mini app from your Telegram bot.');
-      if(SUPABASE_URL.includes('YOUR-PROJECT')||SUPABASE_PUBLISHABLE_KEY.includes('PASTE_YOUR'))throw new Error('Add your Supabase project URL and publishable key in the code first.');
       const response=await fetch(`${SUPABASE_URL}/functions/v1/${EDGE_FUNCTION}`,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPABASE_PUBLISHABLE_KEY},body:JSON.stringify({action,initData,payload})});
       const data=await response.json().catch(()=>({}));if(!response.ok||data.ok===false)throw new Error(data.error||`Server request failed (${response.status})`);return data;
     }
-    function render(data){current=data;const b=data.balances||{};$('#withdrawable').textContent=amount(b.withdrawable);$('#withdrawable-2').textContent=amount(b.withdrawable);$('#mining-pending').textContent=amount(b.mining_pending);$('#today-rewards').textContent=`${amount(data.ads?.today_reward)} NOXV`;$('#ads-watched').textContent=amount(data.ads?.today_count);$('#ref-count').textContent=amount(data.referrals?.qualified_count);$('#ref-earned').textContent=`${amount(data.referrals?.earned)} NOXV`;$('#ref-link').textContent=data.referrals?.link||'Referral link not available';$('#mine-status').textContent=data.mining?.active?'Mining session active':'Start a session and reactivate after each hour.';$('#time-left').textContent=data.mining?.active?`${Math.max(0,Math.ceil(Number(data.mining.seconds_left||0)/60))} min remaining`:'Mining status loaded from your account';$('#mine-progress').style.width=`${Math.min(100,Math.max(0,Number(data.mining?.progress_percent||0)))}%`;$('#mine-start').disabled=!!data.mining?.active;$('#mine-stop').disabled=!data.mining?.active;$('#mine-collect').disabled=Number(b.mining_pending||0)<=0;$('#telegram-user').textContent=data.user?.username?`@${data.user.username}`:(data.user?.first_name||'Telegram User');$('#admin-task-box').classList.toggle('hidden',!data.is_admin);renderTasks(data.tasks||[]);updateAdButton()}
-    function renderTasks(tasks){const box=$('#tasks-list');box.replaceChildren();if(!tasks.length){const empty=document.createElement('div');empty.className='muted';empty.textContent='No channel tasks are available yet.';box.append(empty);return}for(const task of tasks){const item=document.createElement('div');item.className='task-item';const row=document.createElement('div');row.className='row';const icon=document.createElement('div');icon.className='icon';icon.textContent='＋';const copy=document.createElement('div');copy.className='grow';const title=document.createElement('b');title.textContent=task.title;const desc=document.createElement('small');desc.textContent=task.description||'Join the Telegram channel';const reward=document.createElement('div');reward.className='reward';reward.textContent=`+${amount(task.reward||1)} NOXV`;copy.append(title,desc);row.append(icon,copy,reward);const join=document.createElement('button');join.className='btn secondary';join.textContent='Join Channel';join.addEventListener('click',()=>{if(task.channel_url)tg?.openTelegramLink(task.channel_url);else say('Channel link is unavailable.')});const verify=document.createElement('button');verify.className='btn';verify.textContent=task.completed?'Completed':'Verify Membership & Claim';verify.disabled=!!task.completed;verify.addEventListener('click',async()=>{try{await api('task_claim',{task_id:task.id});await refresh();say('Task verified. Reward added to withdrawable balance.')}catch(e){say(e.message)}});item.append(row,join,verify);box.append(item)}}
-    document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===`${btn.dataset.tab}-screen`))}));
+    function render(data){
+      current=data;
+      const b=data.balances||{};
+      $('#withdrawable').textContent=amount(b.withdrawable);
+      $('#withdrawable-2').textContent=amount(b.withdrawable);
+      $('#mining-pending').textContent=amount(b.mining_pending);
+      $('#today-rewards').textContent=`${amount(data.ads?.today_reward)} NOXV`;
+      $('#ads-watched').textContent=amount(data.ads?.today_count);
+      $('#ref-count').textContent=amount(data.referrals?.qualified_count);
+      $('#ref-earned').textContent=`${amount(data.referrals?.earned)} NOXV`;
+      $('#ref-link').textContent=data.referrals?.link||'Referral link not available';
+      $('#mine-status').textContent=data.mining?.active?'Mining session active':'Start a session and reactivate after each hour.';
+      $('#time-left').textContent=data.mining?.active?`${Math.max(0,Math.ceil(Number(data.mining.seconds_left||0)/60))} min remaining`:'Mining status loaded from your account';
+      $('#mine-progress').style.width=`${Math.min(100,Math.max(0,Number(data.mining?.progress_percent||0)))}%`;
+      $('#mine-start').disabled=!!data.mining?.active;
+      $('#mine-stop').disabled=!data.mining?.active;
+      $('#mine-collect').disabled=Number(b.mining_pending||0)<=0;
+      $('#telegram-user').textContent=data.user?.username?`@${data.user.username}`:(data.user?.first_name||'Telegram User');
+
+      // profile photo
+      if(data.user?.photo_url){const img=$('#brand-logo');if(img)img.src=data.user.photo_url;}
+
+      // admin tab show/hide
+      isAdmin = !!data.is_admin;
+      $('#admin-tab').classList.toggle('hidden',!isAdmin);
+      $('#main-tabs').classList.toggle('admin-mode',isAdmin);
+      $('#admin-task-box').classList.toggle('hidden',!isAdmin);
+
+      renderTasks(data.tasks||[]);
+      updateAdButton();
+    }
+    function renderTasks(tasks){
+      const box=$('#tasks-list');box.replaceChildren();
+      if(!tasks.length){const empty=document.createElement('div');empty.className='muted';empty.textContent='No channel tasks are available yet.';box.append(empty);return}
+      for(const task of tasks){
+        const item=document.createElement('div');item.className='task-item';
+        const row=document.createElement('div');row.className='row';
+        const icon=document.createElement('div');icon.className='icon';icon.textContent='＋';
+        const copy=document.createElement('div');copy.className='grow';
+        const title=document.createElement('b');title.textContent=task.title;
+        const desc=document.createElement('small');desc.textContent=task.description||'Join the Telegram channel';
+        const reward=document.createElement('div');reward.className='reward';reward.textContent=`+${amount(task.reward||1)} NOXV`;
+        copy.append(title,desc);row.append(icon,copy,reward);
+        const join=document.createElement('button');join.className='btn secondary';join.textContent='Join Channel';
+        join.addEventListener('click',()=>{if(task.channel_url)tg?.openTelegramLink(task.channel_url);else say('Channel link is unavailable.')});
+        const verify=document.createElement('button');verify.className='btn';
+        verify.textContent=task.completed?'Completed':'Verify Membership & Claim';
+        verify.disabled=!!task.completed;
+        verify.addEventListener('click',async()=>{try{await api('task_claim',{task_id:task.id});await refresh();say('Task verified. Reward added.')}catch(e){say(e.message)}});
+        item.append(row,join,verify);box.append(item);
+      }
+    }
+
+    // -------- Admin: Withdrawals --------
+    async function loadWithdrawals(){
+      const box=$('#withdrawal-list');
+      box.innerHTML='<div class="muted">Loading…</div>';
+      try{
+        const d=await api('admin_list_withdrawals');
+        const list=d.withdrawals||[];
+        if(!list.length){box.innerHTML='<div class="muted">No withdrawal requests yet.</div>';return}
+        box.innerHTML='';
+        for(const w of list){
+          const el=document.createElement('div');el.className='wd-item';
+          el.innerHTML=`
+            <div class="row"><b>${amount(w.amount)} NOXV</b><span class="wd-status ${w.status}">${w.status}</span></div>
+            <div class="wd-meta">User ID: ${w.user_id}${w.username?` · @${w.username}`:''}</div>
+            <div class="wd-meta">Address: <code>${w.address}</code></div>
+            <div class="wd-meta">Date: ${new Date(w.created_at).toLocaleString()}</div>
+          `;
+          if(w.status==='pending'){
+            const approve=document.createElement('button');approve.className='btn success';approve.textContent='✅ Mark as Paid';
+            approve.onclick=async()=>{try{await api('admin_mark_withdrawal',{id:w.id,status:'paid'});say('Marked as paid.');loadWithdrawals()}catch(e){say(e.message)}};
+            const reject=document.createElement('button');reject.className='btn danger';reject.textContent='❌ Reject & Refund';
+            reject.onclick=async()=>{try{await api('admin_mark_withdrawal',{id:w.id,status:'rejected'});say('Rejected. Balance refunded.');loadWithdrawals()}catch(e){say(e.message)}};
+            el.append(approve,reject);
+          }
+          box.append(el);
+        }
+      }catch(e){box.innerHTML=`<div class="muted">${e.message}</div>`}
+    }
+    $('#refresh-wd').addEventListener('click',loadWithdrawals);
+
+    // -------- Navigation --------
+    document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));
+      document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===`${btn.dataset.tab}-screen`));
+      if(btn.dataset.tab==='admin')loadWithdrawals();
+    }));
+
+    // -------- Actions --------
     async function act(action,payload={},success=''){try{const data=await api(action,payload);if(data.state)render(data.state);else await refresh();if(success)say(success);return data}catch(e){say(e.message);throw e}}
     async function refresh(){const data=await api('get_state');render(data)}
     $('#mine-start').addEventListener('click',()=>act('mining_start',{},'Mining session started.'));
-    $('#mine-stop').addEventListener('click',()=>act('mining_stop',{},'Session stopped. Pending mining rewards are saved.'));
+    $('#mine-stop').addEventListener('click',()=>act('mining_stop',{},'Session stopped. Pending rewards saved.'));
     $('#mine-collect').addEventListener('click',()=>act('mining_collect',{},'Mining rewards moved to withdrawable balance.'));
-    $('#withdraw-btn').addEventListener('click',async()=>{const value=Number($('#withdraw-amount').value),address=$('#withdraw-address').value.trim();if(value<500)return say('Minimum withdrawal is 500 NOXV.');if(!address)return say('Enter your TON wallet address.');await act('withdraw_request',{amount:value,address},'Withdrawal request sent for review.')});
-    $('#add-task').addEventListener('click',async()=>{const title=$('#task-title').value.trim(),description=$('#task-description').value.trim(),channel_url=$('#task-url').value.trim();if(!title||!/^https:\/\/t\.me\//i.test(channel_url))return say('Enter a title and a public t.me channel link.');await act('task_create',{title,description,channel_url,reward:1},'Task added.');$('#task-title').value='';$('#task-description').value='';$('#task-url').value=''});
+    $('#withdraw-btn').addEventListener('click',async()=>{
+      const value=Number($('#withdraw-amount').value),address=$('#withdraw-address').value.trim();
+      if(value<500)return say('Minimum withdrawal is 500 NOXV.');
+      if(!address)return say('Enter your TON wallet address.');
+      await act('withdraw_request',{amount:value,address},'Withdrawal request sent for review.');
+      $('#withdraw-amount').value='';$('#withdraw-address').value='';
+    });
+    $('#add-task').addEventListener('click',async()=>{
+      const title=$('#task-title').value.trim(),description=$('#task-description').value.trim(),channel_url=$('#task-url').value.trim();
+      if(!title||!/^https:\/\/t\.me\//i.test(channel_url))return say('Enter a title and a public t.me channel link.');
+      await act('task_create',{title,description,channel_url,reward:1},'Task added.');
+      $('#task-title').value='';$('#task-description').value='';$('#task-url').value='';
+    });
     $('#copy-ref').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#ref-link').textContent);say('Referral link copied.')}catch{say('Select and copy your referral link.')}});
-    function updateAdButton(){const ready=typeof window.NOXV_ADS?.showRewarded==='function';const button=$('#watch-ad');button.disabled=!ready;button.textContent=ready?'Watch Ad · Earn 10 NOXV':'Ads Not Connected'}
+
+    // -------- Ads placeholder (AdsGram connect hone ke baad kaam karega) --------
+    function updateAdButton(){
+      const ready=typeof window.NOXV_ADS?.showRewarded==='function';
+      const button=$('#watch-ad');
+      button.disabled=!ready;
+      button.textContent=ready?'Watch Ad · Earn 10 NOXV':'Ads Not Connected';
+    }
     window.addEventListener('noxvolt-ads-ready',updateAdButton);
-    $('#watch-ad').addEventListener('click',async()=>{if(typeof window.NOXV_ADS?.showRewarded!=='function')return;try{const session=await api('ad_start');const result=await window.NOXV_ADS.showRewarded({sessionId:session.session_id});if(!result?.completed||!result?.receipt)return say('Ad was not completed; no NOXV was added.');await act('ad_confirm',{session_id:session.session_id,provider_receipt:result.receipt},'Ad completion verified. Reward added.')}catch(e){say(e.message)}});
-    async function boot(){tg?.ready();tg?.expand();initData=tg?.initData||'';if(!initData){showMessage('Open this page inside Telegram using your bot’s Mini App button.',true);$('#watch-ad').disabled=true;return}try{await refresh()}catch(e){showMessage(e.message,true)}}
+    $('#watch-ad').addEventListener('click',async()=>{
+      if(typeof window.NOXV_ADS?.showRewarded!=='function')return;
+      try{
+        const session=await api('ad_start');
+        const result=await window.NOXV_ADS.showRewarded({sessionId:session.session_id});
+        if(!result?.completed||!result?.receipt)return say('Ad was not completed; no NOXV added.');
+        await act('ad_confirm',{session_id:session.session_id,provider_receipt:result.receipt},'Ad verified. Reward added.');
+      }catch(e){say(e.message)}
+    });
+
+    async function boot(){
+      tg?.ready();tg?.expand();
+      initData=tg?.initData||'';
+      if(!initData){showMessage('Open this page inside Telegram using your bot\'s Mini App button.',true);$('#watch-ad').disabled=true;return}
+      try{await refresh()}catch(e){showMessage(e.message,true)}
+    }
     boot();
   </script>
 </body>
