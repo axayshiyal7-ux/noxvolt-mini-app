@@ -248,7 +248,7 @@
     });
     $('#copy-ref').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#ref-link').textContent);say('Referral link copied.')}catch{say('Select and copy your referral link.')}});
 
-    // ============ ADSGRAM INTEGRATION ============
+    // ============ ADSGRAM INTEGRATION (official docs ke mutabik) ============
     function updateAdButton(){
       const ready = typeof window.NOXV_ADS?.showRewarded === 'function';
       const button = $('#watch-ad');
@@ -262,14 +262,26 @@
       try {
         const AdController = window.Adsgram.init({ blockId: ADSGRAM_BLOCK_ID });
         window.NOXV_ADS = {
-          showRewarded: async ({ sessionId }) => {
-            try {
-              await AdController.show();
-              return { completed: true, receipt: `adsgram-${sessionId}-${Date.now()}` };
-            } catch (e) {
-              console.warn("Ad skipped or failed:", e);
-              return { completed: false };
-            }
+          showRewarded: ({ sessionId }) => {
+            return new Promise((resolve) => {
+              AdController.show()
+                .then((result) => {
+                  // result.done === true → user watched till the end
+                  if (result && result.done) {
+                    resolve({
+                      completed: true,
+                      receipt: `adsgram-${sessionId}-${Date.now()}`
+                    });
+                  } else {
+                    // skipped ya close kiya bina dekhe
+                    resolve({ completed: false });
+                  }
+                })
+                .catch((err) => {
+                  console.warn("Ad error:", err);
+                  resolve({ completed: false });
+                });
+            });
           }
         };
         window.dispatchEvent(new Event("noxvolt-ads-ready"));
