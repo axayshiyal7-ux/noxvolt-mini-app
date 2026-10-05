@@ -6,7 +6,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js?63"></script>
   <style>
     :root{color-scheme:dark;--bg:#080a0f;--line:#293241;--muted:#9ba7b8;--gold:#ffd33d;--gold2:#ffad21;--text:#f5f7fb;--green:#6ee7ae;--blue:#67c5ff;--red:#ff6b6b}
-    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#4d3813 0,transparent 48%),var(--bg);color:var(--text);font:15px/1.48 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input{font:inherit}button{color:inherit;cursor:pointer}.app{max-width:480px;min-height:100vh;margin:auto;padding:18px 16px 106px}.top{display:flex;align-items:center;justify-content:space-between;margin:3px 1px 20px}.brand{display:flex;align-items:center;gap:10px}.brand img{width:42px;height:42px;border-radius:50%;border:1px solid #6b581d;object-fit:cover}.brand b{display:block;letter-spacing:.09em;font-size:14px}.brand small{font-size:11px;color:var(--muted)}.wallet{padding:9px 13px;background:#171d27;border:1px solid #364152;border-radius:999px;font-size:12px}.screen{display:none;animation:appear .18s ease}.screen.active{display:block}@keyframes appear{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.hero{padding:22px 18px;text-align:center;border-radius:23px;border:1px solid #58471b;background:linear-gradient(145deg,#211b0e,#11151d 68%);box-shadow:0 16px 44px #0006}.eyebrow{font-size:11px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}.balance{font-size:39px;line-height:1.16;font-weight:850;letter-spacing:-.045em;margin:7px 0 2px;overflow-wrap:anywhere}.balance span{font-size:15px;letter-spacing:0;color:var(--gold)}.muted{color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 20px}.stat,.card{border:1px solid var(--line);background:linear-gradient(145deg,#141923,#10141b);border-radius:17px;padding:14px}.stat small{display:block;color:var(--muted);font-size:12px}.stat b{font-size:15px}.heading{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}.heading h1,.heading h2{font-size:19px;margin:0}.heading small{color:var(--muted);font-size:12px}.row{display:flex;align-items:center;gap:12px}.icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;color:var(--gold);font-size:20px;background:#30250e;border:1px solid #59451a}.grow{flex:1;min-width:0}.grow b{display:block}.grow small{color:var(--muted);font-size:12px}.reward{color:var(--green);font-size:13px;font-weight:800;white-space:nowrap}.btn{width:100%;border:0;border-radius:13px;padding:13px 16px;margin-top:13px;background:linear-gradient(105deg,var(--gold2),var(--gold));color:#171208;font-weight:850;box-shadow:0 6px 22px #ffbf2821}.btn.secondary{background:#1b2330;border:1px solid #344154;color:#eff4fb;box-shadow:none}.btn.danger{background:linear-gradient(105deg,#e74c3c,#c0392b);color:#fff}.btn.success{background:linear-gradient(105deg,#2ecc71,#27ae60);color:#0a0a0a}.btn:disabled{opacity:.5;cursor:not-allowed}.notice{padding:12px 13px;margin-top:13px;border:1px solid #303949;border-radius:13px;background:#121720;color:var(--muted);font-size:12px}.notice strong{color:#f3d987}.task-item{padding:13px 0;border-bottom:1px solid var(--line)}.task-item:last-child{border-bottom:0;padding-bottom:0}.progress{height:8px;border-radius:99px;background:#293241;overflow:hidden;margin:12px 0}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:inherit;transition:width .4s}.big-number{text-align:center;font-size:29px;font-weight:800;color:var(--gold);margin:8px;overflow-wrap:anywhere}.tabs{position:fixed;z-index:5;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(6,1fr);padding:9px 7px calc(9px + env(safe-area-inset-bottom));background:#0c0f15f2;backdrop-filter:blur(15px);border-top:1px solid #29313d}.tabs.admin-mode{grid-template-columns:repeat(7,1fr)}.tab{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;color:#929eaf;font-size:10px;padding:5px 1px}.tab span:first-child{font-size:19px;line-height:1.1}.tab.active{color:var(--gold)}.tab.hidden{display:none}.toast{position:fixed;z-index:9;left:50%;bottom:91px;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#222b38;border:1px solid #3a485a;border-radius:12px;padding:11px 14px;transition:.2s;text-align:center;max-width:calc(100vw - 32px);font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}.field{width:100%;padding:12px;border-radius:12px;border:1px solid #343e4d;background:#0c1017;color:var(--text);outline:none}.field:focus{border-color:#9a7a23}.ref-link{word-break:break-all;color:var(--blue);font-size:12px;padding:10px;border-radius:10px;background:#0d1219;border:1px solid #293342;margin-top:10px}.hidden{display:none!important}.wd-item{border:1px solid var(--line);background:#11151d;border-radius:12px;padding:12px;margin-bottom:10px}.wd-item .row{margin-bottom:6px}.wd-meta{font-size:12px;color:var(--muted);word-break:break-all}.wd-status{padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}.wd-status.pending{background:#ffd33d22;color:var(--gold)}.wd-status.paid{background:#2ecc7122;color:var(--green)}.wd-status.rejected{background:#e74c3c22;color:var(--red)}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#4d3813 0,transparent 48%),var(--bg);color:var(--text);font:15px/1.48 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input{font:inherit}button{color:inherit;cursor:pointer}.app{max-width:480px;min-height:100vh;margin:auto;padding:18px 16px 106px}.top{display:flex;align-items:center;justify-content:space-between;margin:3px 1px 20px}.brand{display:flex;align-items:center;gap:10px}.brand img{width:42px;height:42px;border-radius:50%;border:1px solid #6b581d;object-fit:cover}.brand b{display:block;letter-spacing:.09em;font-size:14px}.brand small{font-size:11px;color:var(--muted)}.wallet{padding:9px 13px;background:#171d27;border:1px solid #364152;border-radius:999px;font-size:12px}.screen{display:none;animation:appear .18s ease}.screen.active{display:block}@keyframes appear{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.hero{padding:22px 18px;text-align:center;border-radius:23px;border:1px solid #58471b;background:linear-gradient(145deg,#211b0e,#11151d 68%);box-shadow:0 16px 44px #0006}.eyebrow{font-size:11px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}.balance{font-size:39px;line-height:1.16;font-weight:850;letter-spacing:-.045em;margin:7px 0 2px;overflow-wrap:anywhere}.balance span{font-size:15px;letter-spacing:0;color:var(--gold)}.muted{color:var(--muted);font-size:13px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 20px}.stat,.card{border:1px solid var(--line);background:linear-gradient(145deg,#141923,#10141b);border-radius:17px;padding:14px}.stat small{display:block;color:var(--muted);font-size:12px}.stat b{font-size:15px}.heading{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}.heading h1,.heading h2{font-size:19px;margin:0}.heading small{color:var(--muted);font-size:12px}.row{display:flex;align-items:center;gap:12px}.icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;color:var(--gold);font-size:20px;background:#30250e;border:1px solid #59451a}.grow{flex:1;min-width:0}.grow b{display:block}.grow small{color:var(--muted);font-size:12px}.reward{color:var(--green);font-size:13px;font-weight:800;white-space:nowrap}.btn{width:100%;border:0;border-radius:13px;padding:13px 16px;margin-top:13px;background:linear-gradient(105deg,var(--gold2),var(--gold));color:#171208;font-weight:850;box-shadow:0 6px 22px #ffbf2821}.btn.secondary{background:#1b2330;border:1px solid #344154;color:#eff4fb;box-shadow:none}.btn.danger{background:linear-gradient(105deg,#e74c3c,#c0392b);color:#fff}.btn.success{background:linear-gradient(105deg,#2ecc71,#27ae60);color:#0a0a0a}.btn:disabled{opacity:.5;cursor:not-allowed}.notice{padding:12px 13px;margin-top:13px;border:1px solid #303949;border-radius:13px;background:#121720;color:var(--muted);font-size:12px}.notice strong{color:#f3d987}.task-item{padding:13px 0;border-bottom:1px solid var(--line)}.task-item:last-child{border-bottom:0;padding-bottom:0}.progress{height:8px;border-radius:99px;background:#293241;overflow:hidden;margin:12px 0}.progress span{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:inherit;transition:width .4s}.big-number{text-align:center;font-size:29px;font-weight:800;color:var(--gold);margin:8px;overflow-wrap:anywhere}.tabs{position:fixed;z-index:5;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(6,1fr);padding:9px 7px calc(9px + env(safe-area-inset-bottom));background:#0c0f15f2;backdrop-filter:blur(15px);border-top:1px solid #29313d}.tabs.admin-mode{grid-template-columns:repeat(7,1fr)}.tab{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;color:#929eaf;font-size:10px;padding:5px 1px}.tab span:first-child{font-size:19px;line-height:1.1}.tab.active{color:var(--gold)}.tab.hidden{display:none}.toast{position:fixed;z-index:9;left:50%;bottom:91px;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#222b38;border:1px solid #3a485a;border-radius:12px;padding:11px 14px;transition:.2s;text-align:center;max-width:calc(100vw - 32px);font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}.field{width:100%;padding:12px;border-radius:12px;border:1px solid #343e4d;background:#0c1017;color:var(--text);outline:none}.field:focus{border-color:#9a7a23}.ref-link{word-break:break-all;color:var(--blue);font-size:12px;padding:10px;border-radius:10px;background:#0d1219;border:1px solid #293342;margin-top:10px}.hidden{display:none!important}.wd-item{border:1px solid var(--line);background:#11151d;border-radius:12px;padding:12px;margin-bottom:10px}.wd-item .row{margin-bottom:6px}.wd-meta{font-size:12px;color:var(--muted);word-break:break-all}.wd-status{padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}.wd-status.pending{background:#ffd33d22;color:var(--gold)}.wd-status.paid{background:#2ecc7122;color:var(--green)}.wd-status.rejected{background:#e74c3c22;color:var(--red)}.contract{font-family:monospace;font-size:11px;color:var(--blue);padding:9px;background:#0d1219;border:1px solid #293342;border-radius:9px;margin-top:8px;word-break:break-all}
     @media(min-width:700px){body{padding:20px 0}.app{min-height:calc(100vh - 40px);border:1px solid #202735;border-radius:26px;background:#0b0e14;padding-top:23px}.tabs{bottom:20px;border:1px solid #29313d;border-radius:0 0 25px 25px}}
   </style>
 </head>
@@ -23,17 +23,90 @@
       <div class="notice"><strong>No fake rewards:</strong> the ad button enables only when an ad provider adapter is connected. The server must verify the provider receipt before adding NOXV. No app-side daily cap is set; the ad provider may have serving limits.</div>
     </section>
 
-    <section class="screen" id="tasks-screen"><div class="heading"><h1>Tasks</h1><small>Join channel · Earn 1 NOXV</small></div><div class="card" id="tasks-list"><div class="muted">Loading tasks…</div></div><div id="admin-task-box" class="card hidden" style="margin-top:12px"><b>Admin: add a channel task</b><input class="field" id="task-title" placeholder="Task title" style="margin-top:12px"><input class="field" id="task-description" placeholder="Short instruction" style="margin-top:9px"><input class="field" id="task-url" placeholder="https://t.me/channel" style="margin-top:9px"><button class="btn" id="add-task">Publish task</button></div><div class="notice">Only bot-approved admins can add tasks. Server-side admin and Telegram channel membership checks are required.</div></section>
+    <section class="screen" id="tasks-screen">
+      <div class="heading"><h1>Tasks</h1><small>Join channel · Earn 10 NOXV</small></div>
+      <div class="card" id="tasks-list"><div class="muted">Loading tasks…</div></div>
+      <div id="admin-task-box" class="card hidden" style="margin-top:12px">
+        <b>Admin: add a channel task</b>
+        <input class="field" id="task-title" placeholder="Task title" style="margin-top:12px">
+        <input class="field" id="task-description" placeholder="Short instruction" style="margin-top:9px">
+        <input class="field" id="task-url" placeholder="https://t.me/channel" style="margin-top:9px">
+        <button class="btn" id="add-task">Publish task</button>
+      </div>
+    </section>
 
-    <section class="screen" id="mining-screen"><div class="heading"><h1>Mining</h1><small>15 NOXV per hour</small></div><div class="card" style="text-align:center;padding:22px 17px"><div class="eyebrow">Pending mining rewards</div><div class="big-number"><span id="mining-pending">0</span> NOXV</div><div class="muted" id="mine-status">Start a session and reactivate after each hour.</div><div class="progress"><span id="mine-progress"></span></div><div class="muted" id="time-left">Mining status loads from your account</div><button class="btn" id="mine-start">Start Mining</button><button class="btn secondary" id="mine-stop">Stop Session</button><button class="btn" id="mine-collect">Collect to Withdrawable Balance</button></div><div class="notice">Mining time and rewards are calculated by the Supabase server. Stopping does not erase pending rewards; collect moves them into your withdrawable balance.</div></section>
+    <section class="screen" id="mining-screen">
+      <div class="heading"><h1>Mining</h1><small>15 NOXV per hour</small></div>
+      <div class="card" style="text-align:center;padding:22px 17px">
+        <div class="eyebrow">Pending mining rewards</div>
+        <div class="big-number"><span id="mining-pending">0</span> NOXV</div>
+        <div class="muted" id="mine-status">Start a session and reactivate after each hour.</div>
+        <div class="progress"><span id="mine-progress"></span></div>
+        <div class="muted" id="time-left">Mining status loads from your account</div>
+        <button class="btn" id="mine-start">Start Mining</button>
+        <button class="btn secondary" id="mine-stop">Stop Session</button>
+        <button class="btn" id="mine-collect">Collect to Withdrawable Balance</button>
+      </div>
+    </section>
 
-    <section class="screen" id="withdraw-screen"><div class="heading"><h1>Withdraw</h1><small>Minimum: 500 NOXV · TON</small></div><div class="card"><div class="row"><div class="icon">⇧</div><div class="grow"><small>Withdrawable balance</small><b><span id="withdrawable-2">0</span> NOXV</b></div></div><label class="muted" for="withdraw-amount" style="display:block;margin:18px 0 7px">Amount to withdraw</label><input class="field" id="withdraw-amount" type="number" min="500" placeholder="500 or more"><label class="muted" for="withdraw-address" style="display:block;margin:14px 0 7px">TON wallet address</label><input class="field" id="withdraw-address" placeholder="Your TON wallet address"><button class="btn" id="withdraw-btn">Request Withdrawal</button></div><div class="notice">The server checks the 500 NOXV minimum and records each request against your Telegram account.</div></section>
+    <section class="screen" id="withdraw-screen">
+      <div class="heading"><h1>Withdraw</h1><small>Minimum: 500 NOXV · TON</small></div>
+      <div class="card">
+        <div class="row"><div class="icon">⇧</div><div class="grow"><small>Withdrawable balance</small><b><span id="withdrawable-2">0</span> NOXV</b></div></div>
+        <label class="muted" for="withdraw-amount" style="display:block;margin:18px 0 7px">Amount to withdraw</label>
+        <input class="field" id="withdraw-amount" type="number" min="500" placeholder="500 or more">
+        <label class="muted" for="withdraw-address" style="display:block;margin:14px 0 7px">TON wallet address</label>
+        <input class="field" id="withdraw-address" placeholder="Your TON wallet address">
+        <button class="btn" id="withdraw-btn">Request Withdrawal</button>
+      </div>
+      <div class="notice">The server checks the 500 NOXV minimum and records each request against your Telegram account.</div>
+    </section>
 
-    <section class="screen" id="referrals-screen"><div class="heading"><h1>Referrals</h1><small>Invite friends</small></div><div class="hero"><div class="eyebrow">Referral reward</div><div class="balance" style="font-size:36px">50 <span>NOXV</span></div><div class="muted">When your invited friend completes 10 verified ads</div></div><div class="stats"><div class="stat"><small>Successful referrals</small><b id="ref-count">0</b></div><div class="stat"><small>Referral rewards</small><b id="ref-earned">0 NOXV</b></div></div><div class="card"><b>Your personal referral link</b><div class="ref-link" id="ref-link">Loading…</div><button class="btn secondary" id="copy-ref">Copy Referral Link</button></div></section>
+    <section class="screen" id="referrals-screen">
+      <div class="heading"><h1>Referrals</h1><small>Invite friends</small></div>
+      <div class="hero">
+        <div class="eyebrow">Referral reward</div>
+        <div class="balance" style="font-size:36px">50 <span>NOXV</span></div>
+        <div class="muted">When your invited friend completes 5 verified ads</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><small>Successful referrals</small><b id="ref-count">0</b></div>
+        <div class="stat"><small>Referral rewards</small><b id="ref-earned">0 NOXV</b></div>
+      </div>
+      <div class="card">
+        <b>Your personal referral link</b>
+        <div class="ref-link" id="ref-link">Loading…</div>
+        <button class="btn secondary" id="copy-ref">Copy Referral Link</button>
+      </div>
+    </section>
 
-    <section class="screen" id="about-screen"><div class="heading"><h1>About NoxVolt</h1><small>NOXV · TON Jetton</small></div><div class="hero" style="text-align:left"><div class="eyebrow">The project</div><p>NoxVolt is a TON token project planned around community tasks, referral rewards and sponsored ads.</p></div><div class="heading"><h2>Token information</h2></div><div class="stats"><div class="stat"><small>Token symbol</small><b>NOXV</b></div><div class="stat"><small>Currently minted</small><b>100,000,000 NOXV</b></div></div><article class="card"><div class="eyebrow">Market information</div><p><b>Current market price: $0</b></p><div class="muted">NOXV is not currently listed, so there is no active market price.</div></article><article class="card" style="margin-top:11px"><div class="eyebrow">Planned listings</div><p>We plan to apply for listings on <b>DeDust</b> and <b>STON.fi</b>. Swaps may become available if listed and liquidity is established. Listing and trading availability are not guaranteed.</p></article></section>
+    <section class="screen" id="about-screen">
+      <div class="heading"><h1>About NoxVolt</h1><small>NOXV · TON Jetton</small></div>
+      <div class="hero" style="text-align:left">
+        <div class="eyebrow">The project</div>
+        <p>NoxVolt is a TON token project planned around community tasks, referral rewards and sponsored ads.</p>
+      </div>
+      <div class="heading"><h2>Token information</h2></div>
+      <div class="stats">
+        <div class="stat"><small>Token symbol</small><b>NOXV</b></div>
+        <div class="stat"><small>Network</small><b>TON</b></div>
+      </div>
+      <article class="card">
+        <div class="eyebrow">Contract Address</div>
+        <p style="margin:8px 0 0"><b>NoxVolt Token in TON</b></p>
+        <div class="contract">EQA2CfS2tF1ylbbYomRKf3GgMoRzaQLY45FtJsHQRLh588iF</div>
+      </article>
+      <article class="card" style="margin-top:11px">
+        <div class="eyebrow">Market information</div>
+        <p><b>Current market price: $0</b></p>
+        <div class="muted">NOXV is not currently listed, so there is no active market price.</div>
+      </article>
+      <article class="card" style="margin-top:11px">
+        <div class="eyebrow">Planned listings</div>
+        <p>We plan to apply for listings on <b>DeDust</b> and <b>STON.fi</b>. Swaps may become available if listed and liquidity is established. Listing and trading availability are not guaranteed.</p>
+      </article>
+    </section>
 
-    <!-- ADMIN PANEL (sirf admin ko dikhta hai) -->
     <section class="screen" id="admin-screen">
       <div class="heading"><h1>⚙️ Admin Panel</h1><small>Withdrawal requests</small></div>
       <div class="card">
@@ -55,7 +128,6 @@
   </main>
   <div class="toast" id="toast" role="status"></div>
   <script>
-    // Supabase project URL and PUBLISHABLE key
     const SUPABASE_URL = "https://phyqkohgvzvmgawjzyia.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq";
     const EDGE_FUNCTION = "noxvolt-api";
@@ -89,16 +161,11 @@
       $('#mine-stop').disabled=!data.mining?.active;
       $('#mine-collect').disabled=Number(b.mining_pending||0)<=0;
       $('#telegram-user').textContent=data.user?.username?`@${data.user.username}`:(data.user?.first_name||'Telegram User');
-
-      // profile photo
       if(data.user?.photo_url){const img=$('#brand-logo');if(img)img.src=data.user.photo_url;}
-
-      // admin tab show/hide
       isAdmin = !!data.is_admin;
       $('#admin-tab').classList.toggle('hidden',!isAdmin);
       $('#main-tabs').classList.toggle('admin-mode',isAdmin);
       $('#admin-task-box').classList.toggle('hidden',!isAdmin);
-
       renderTasks(data.tasks||[]);
       updateAdButton();
     }
@@ -112,7 +179,7 @@
         const copy=document.createElement('div');copy.className='grow';
         const title=document.createElement('b');title.textContent=task.title;
         const desc=document.createElement('small');desc.textContent=task.description||'Join the Telegram channel';
-        const reward=document.createElement('div');reward.className='reward';reward.textContent=`+${amount(task.reward||1)} NOXV`;
+        const reward=document.createElement('div');reward.className='reward';reward.textContent=`+${amount(task.reward||10)} NOXV`;
         copy.append(title,desc);row.append(icon,copy,reward);
         const join=document.createElement('button');join.className='btn secondary';join.textContent='Join Channel';
         join.addEventListener('click',()=>{if(task.channel_url)tg?.openTelegramLink(task.channel_url);else say('Channel link is unavailable.')});
@@ -123,8 +190,6 @@
         item.append(row,join,verify);box.append(item);
       }
     }
-
-    // -------- Admin: Withdrawals --------
     async function loadWithdrawals(){
       const box=$('#withdrawal-list');
       box.innerHTML='<div class="muted">Loading…</div>';
@@ -153,15 +218,11 @@
       }catch(e){box.innerHTML=`<div class="muted">${e.message}</div>`}
     }
     $('#refresh-wd').addEventListener('click',loadWithdrawals);
-
-    // -------- Navigation --------
     document.querySelectorAll('.tab').forEach(btn=>btn.addEventListener('click',()=>{
       document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===btn));
       document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===`${btn.dataset.tab}-screen`));
       if(btn.dataset.tab==='admin')loadWithdrawals();
     }));
-
-    // -------- Actions --------
     async function act(action,payload={},success=''){try{const data=await api(action,payload);if(data.state)render(data.state);else await refresh();if(success)say(success);return data}catch(e){say(e.message);throw e}}
     async function refresh(){const data=await api('get_state');render(data)}
     $('#mine-start').addEventListener('click',()=>act('mining_start',{},'Mining session started.'));
@@ -177,12 +238,10 @@
     $('#add-task').addEventListener('click',async()=>{
       const title=$('#task-title').value.trim(),description=$('#task-description').value.trim(),channel_url=$('#task-url').value.trim();
       if(!title||!/^https:\/\/t\.me\//i.test(channel_url))return say('Enter a title and a public t.me channel link.');
-      await act('task_create',{title,description,channel_url,reward:1},'Task added.');
+      await act('task_create',{title,description,channel_url,reward:10},'Task added.');
       $('#task-title').value='';$('#task-description').value='';$('#task-url').value='';
     });
     $('#copy-ref').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#ref-link').textContent);say('Referral link copied.')}catch{say('Select and copy your referral link.')}});
-
-    // -------- Ads placeholder (AdsGram connect hone ke baad kaam karega) --------
     function updateAdButton(){
       const ready=typeof window.NOXV_ADS?.showRewarded==='function';
       const button=$('#watch-ad');
@@ -199,7 +258,6 @@
         await act('ad_confirm',{session_id:session.session_id,provider_receipt:result.receipt},'Ad verified. Reward added.');
       }catch(e){say(e.message)}
     });
-
     async function boot(){
       tg?.ready();tg?.expand();
       initData=tg?.initData||'';
