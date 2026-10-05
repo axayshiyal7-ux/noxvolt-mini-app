@@ -133,8 +133,8 @@
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq";
     const EDGE_FUNCTION = "noxvolt-api";
 
-    // ✅ AdsGram Block ID
-    const ADSGRAM_BLOCK_ID = "52052";
+    // ✅ AdsGram Real Block ID
+    const ADSGRAM_BLOCK_ID = "52111";
 
     const $ = (s) => document.querySelector(s);
     const tg = window.Telegram?.WebApp;
@@ -258,20 +258,14 @@
     window.addEventListener('noxvolt-ads-ready', updateAdButton);
 
     function initAdsGram() {
-      if (!window.Adsgram) {
-        console.warn("AdsGram SDK not loaded");
-        return;
-      }
+      if (!window.Adsgram) { console.warn("AdsGram SDK not loaded"); return; }
       try {
         const AdController = window.Adsgram.init({ blockId: ADSGRAM_BLOCK_ID });
         window.NOXV_ADS = {
           showRewarded: async ({ sessionId }) => {
             try {
               await AdController.show();
-              return {
-                completed: true,
-                receipt: `adsgram-${sessionId}-${Date.now()}`
-              };
+              return { completed: true, receipt: `adsgram-${sessionId}-${Date.now()}` };
             } catch (e) {
               console.warn("Ad skipped or failed:", e);
               return { completed: false };
@@ -280,9 +274,7 @@
         };
         window.dispatchEvent(new Event("noxvolt-ads-ready"));
         console.log("✅ AdsGram ready with block", ADSGRAM_BLOCK_ID);
-      } catch (e) {
-        console.error("AdsGram init failed:", e);
-      }
+      } catch (e) { console.error("AdsGram init failed:", e); }
     }
 
     $('#watch-ad').addEventListener('click', async () => {
