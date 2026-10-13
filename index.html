@@ -54,7 +54,6 @@ body::before {
   100% { transform: scale(1.1) rotate(3deg); }
 }
 
-/* TOPBAR */
 .topbar { display: flex; justify-content: space-between; align-items: center; padding: 22px 22px 14px; }
 .user-info { display: flex; align-items: center; gap: 14px; }
 .avatar-wrap { position: relative; }
@@ -80,7 +79,6 @@ body::before {
 .user-text .name { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.2; }
 .user-text .username { font-size: 11.5px; color: var(--dim); margin-top: 2px; font-weight: 500; }
 
-/* BALANCE CARD */
 .balance-card {
   margin: 20px 22px 26px;
   padding: 32px 24px;
@@ -120,7 +118,6 @@ body::before {
 }
 .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); animation: statusPulse 1.5s infinite; }
 
-/* ACTION */
 .action-section { padding: 0 22px 26px; }
 .watch-btn {
   width: 100%; padding: 24px; border: none; border-radius: 24px;
@@ -148,7 +145,6 @@ body::before {
 .progress-track { height: 6px; background: rgba(255,255,255,.05); border-radius: 99px; overflow: hidden; }
 .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--purple), var(--pink)); border-radius: 99px; transition: width .6s cubic-bezier(.34,1.56,.64,1); box-shadow: 0 0 15px rgba(168,85,247,.6); }
 
-/* MENU */
 .menu-list { padding: 0 22px; }
 .menu-card {
   display: flex; align-items: center; gap: 16px;
@@ -175,7 +171,6 @@ body::before {
 .menu-text .s { font-size: 12px; color: var(--dim); font-weight: 500; }
 .menu-arrow { color: var(--dim2); font-size: 22px; }
 
-/* NAV */
 .nav {
   position: fixed; bottom: 0; left: 0; right: 0;
   background: rgba(10,7,20,.9);
@@ -207,7 +202,6 @@ body::before {
 }
 .nav-item.hidden { display: none; }
 
-/* PAGES */
 .page { display: none; padding: 0 22px 20px; }
 .page.active { display: block; animation: pageIn .4s cubic-bezier(.34,1.56,.64,1); }
 @keyframes pageIn { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
@@ -222,7 +216,6 @@ body::before {
 }
 .section-sub { font-size: 12.5px; color: var(--dim); margin-bottom: 20px; line-height: 1.6; font-weight: 500; }
 
-/* INPUTS */
 .input {
   width: 100%; padding: 17px 18px; border-radius: 18px;
   border: 1.5px solid rgba(168,85,247,.15);
@@ -241,7 +234,6 @@ body::before {
 }
 .btn-secondary:active { background: rgba(168,85,247,.15); transform: scale(.98); }
 
-/* TASKS */
 .task-item {
   display: flex; justify-content: space-between; align-items: center;
   padding: 18px; background: var(--card);
@@ -260,7 +252,6 @@ body::before {
 }
 .task-item button.done { background: rgba(34,211,238,.15); color: var(--cyan); cursor: not-allowed; box-shadow: none; border: 1px solid rgba(34,211,238,.3); }
 
-/* MINING - PREMIUM COUNTDOWN */
 .mining-card {
   padding: 32px 20px; text-align: center;
   background: linear-gradient(145deg, rgba(168,85,247,.12), rgba(236,72,153,.06));
@@ -349,7 +340,6 @@ body::before {
   color: var(--purple); box-shadow: none;
 }
 
-/* MINI STATS */
 .mini-stat {
   display: flex; align-items: center; gap: 16px;
   padding: 18px; background: var(--card);
@@ -373,7 +363,6 @@ body::before {
   -webkit-text-fill-color: transparent;
 }
 
-/* WITHDRAW / WD ITEM */
 .wd-item {
   border: 1px solid var(--border);
   background: var(--card);
@@ -400,7 +389,6 @@ body::before {
 .btn-approve { background: linear-gradient(135deg, #22d3ee, #06b6d4); color: #042f2e; box-shadow: 0 6px 20px rgba(34,211,238,.35); }
 .btn-reject { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
 
-/* ADMIN */
 .admin-box {
   padding: 22px;
   background: linear-gradient(145deg, rgba(168,85,247,.1), rgba(236,72,153,.05));
@@ -427,13 +415,11 @@ body::before {
 .stat-box .val.warn { background: linear-gradient(135deg, #ef4444, #f97316); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 .stat-box .val.green { background: linear-gradient(135deg, #22c55e, #4ade80); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
 
-/* CHART */
 .chart { display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; height: 120px; padding: 12px 0; margin-bottom: 8px; }
 .chart-bar { flex: 1; background: linear-gradient(180deg, var(--purple), var(--pink)); border-radius: 6px 6px 0 0; min-height: 4px; position: relative; transition: height .5s ease; }
 .chart-bar .bar-lbl { position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: 9px; color: var(--dim); font-weight: 700; white-space: nowrap; }
 .chart-bar .bar-val { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 9.5px; color: #fff; font-weight: 800; white-space: nowrap; }
 
-/* REFERRAL LINK */
 .ref-link {
   word-break: break-all; color: var(--cyan); font-size: 12px;
   padding: 14px; border-radius: 14px;
@@ -443,7 +429,6 @@ body::before {
   font-weight: 600;
 }
 
-/* TOAST */
 .toast {
   position: fixed; top: 24px; left: 50%;
   transform: translateX(-50%) translateY(-140px);
@@ -457,13 +442,11 @@ body::before {
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
 
-/* LOADER / EMPTY */
 .loader { display: inline-block; width: 16px; height: 16px; border: 2.5px solid rgba(168,85,247,.25); border-top-color: var(--purple); border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .empty { text-align: center; padding: 50px 20px; color: var(--dim2); font-size: 13.5px; font-weight: 500; }
 .empty .big-icon { font-size: 48px; display: block; margin-bottom: 12px; opacity: .4; }
 
-/* CONNECT */
 .connect-box { text-align: center; padding: 100px 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
 .connect-box .logo-big { font-size: 80px; margin-bottom: 24px; animation: float 3s ease-in-out infinite; }
 @keyframes float { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-15px) rotate(3deg); } }
@@ -483,7 +466,6 @@ body::before {
 
 <div id="mainApp" style="display:none;">
 
-  <!-- HOME -->
   <div id="page-home" class="page active">
     <div class="topbar">
       <div class="user-info">
@@ -541,7 +523,6 @@ body::before {
     </div>
   </div>
 
-  <!-- TASKS -->
   <div id="page-tasks" class="page">
     <div class="section-title">📋 Tasks</div>
     <div class="section-sub">Join channels and earn NOXV. Each task claims once.</div>
@@ -555,7 +536,6 @@ body::before {
     <div id="tasksList"><div class="empty"><span class="loader"></span> Loading tasks...</div></div>
   </div>
 
-  <!-- MINING -->
   <div id="page-mining" class="page">
     <div class="section-title">⛏️ Mining</div>
     <div class="section-sub">60 min mining → 15 NOXV. Watch an ad to collect.</div>
@@ -587,7 +567,6 @@ body::before {
     </div>
   </div>
 
-  <!-- WITHDRAW -->
   <div id="page-withdraw" class="page">
     <div class="section-title">💸 Withdraw</div>
     <div class="section-sub">Minimum 500 NOXV · TON Network</div>
@@ -611,7 +590,6 @@ body::before {
     <div id="withdrawHistory"><div class="empty">No withdrawals yet</div></div>
   </div>
 
-  <!-- REFERRAL -->
   <div id="page-referral" class="page">
     <div class="section-title">👥 Invite Friends</div>
     <div class="section-sub">Your referral completes 10 ads → you earn 50 NOXV.</div>
@@ -630,7 +608,6 @@ body::before {
     <button class="btn-secondary" id="copyRefBtn" style="margin-top: 12px;">📋 Copy Link</button>
   </div>
 
-  <!-- ADMIN -->
   <div id="page-admin" class="page">
     <div class="section-title">⚙️ Admin Panel</div>
     <div class="section-sub">Full control center</div>
@@ -651,7 +628,6 @@ body::before {
     <div id="adminTab-logs" class="admin-tab" style="display:none;"><div id="logsList"><div class="empty"><span class="loader"></span> Loading...</div></div></div>
   </div>
 
-  <!-- NAV -->
   <div class="nav">
     <div class="nav-item active" data-page="home"><span class="ic">🏠</span>Home</div>
     <div class="nav-item" data-page="tasks"><span class="ic">📋</span>Tasks</div>
@@ -670,8 +646,10 @@ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq
 const EDGE_FUNCTION = "noxvolt-api";
 const ADSGRAM_BLOCK_ID = "53039";
 
-const tg = window.Telegram?.WebApp;
+let tg = null;
 let adController = null;
+let isAdmin = false;
+let miningTimer = null;
 
 window.addEventListener("load", () => {
   if (window.Adsgram) {
@@ -688,21 +666,47 @@ async function showRewardedAd() {
 }
 
 const isDesktop = !/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-let isAdmin = false;
-let miningTimer = null;
 
 async function connect() {
   const msg = document.getElementById("connectMsg");
   const retry = document.getElementById("retryBtn");
   retry.style.display = "none";
 
-  if (!tg || !tg.initData) {
-    msg.innerHTML = "⚠️ Open this app inside Telegram.";
+  console.log("=== CONNECT START ===");
+  console.log("Telegram:", typeof window.Telegram);
+
+  // Wait for Telegram WebApp to be ready (up to 5 seconds)
+  let attempts = 0;
+  while ((!window.Telegram || !window.Telegram.WebApp) && attempts < 50) {
+    await new Promise(r => setTimeout(r, 100));
+    attempts++;
+  }
+
+  console.log("After wait, attempts:", attempts);
+  console.log("Telegram:", typeof window.Telegram);
+  console.log("WebApp:", typeof window.Telegram?.WebApp);
+
+  if (!window.Telegram || !window.Telegram.WebApp) {
+    msg.innerHTML = "⚠️ Telegram WebApp not loaded.<br><small>Open from Telegram menu button.</small>";
     msg.style.color = "#ef4444";
+    retry.style.display = "inline-block";
     return;
   }
 
-  tg.ready(); tg.expand();
+  tg = window.Telegram.WebApp;
+  tg.ready();
+  tg.expand();
+
+  console.log("initData length:", tg.initData?.length || 0);
+  console.log("initData preview:", tg.initData?.substring(0, 200));
+  console.log("user:", JSON.stringify(tg.initDataUnsafe?.user));
+
+  if (!tg.initData || tg.initData.length === 0) {
+    msg.innerHTML = "⚠️ initData is empty.<br><small>Please close and reopen from Telegram menu.</small>";
+    msg.style.color = "#ef4444";
+    retry.style.display = "inline-block";
+    return;
+  }
 
   const u = tg.initDataUnsafe?.user;
   if (u) {
@@ -730,6 +734,7 @@ async function connect() {
     if (isDesktop) setTimeout(() => toast("ℹ️ Ads work only on mobile Telegram"), 1500);
     renderDash(d);
   } catch (e) {
+    console.error("Connect error:", e);
     msg.innerHTML = "❌ " + e.message;
     msg.style.color = "#ef4444";
     retry.style.display = "inline-block";
@@ -745,6 +750,10 @@ function toast(m, err = false) {
 }
 
 async function api(action, payload = {}) {
+  if (!tg || !tg.initData) throw new Error("Not connected to Telegram");
+
+  console.log("API call:", action, "initData len:", tg.initData.length);
+
   const r = await fetch(`${SUPABASE_URL}/functions/v1/${EDGE_FUNCTION}`, {
     method: "POST",
     headers: { "Content-Type": "application/json", "apikey": SUPABASE_PUBLISHABLE_KEY },
@@ -771,14 +780,13 @@ function go(page) {
 document.querySelectorAll(".nav-item").forEach(el => el.onclick = () => go(el.dataset.page));
 
 function renderDash(d) {
-  const b = Number(d.user.balance || 0);
+  const b = Number(d.user?.balance || 0);
   document.getElementById("balanceBig").textContent = b.toFixed(2);
-  document.getElementById("adsToday").textContent = d.user.ads_watched_total || 0;
-  document.getElementById("progFill").style.width = Math.min(100, ((d.user.ads_watched_total || 0) % 20) * 5) + "%";
+  document.getElementById("adsToday").textContent = d.user?.ads_watched_total || 0;
+  document.getElementById("progFill").style.width = Math.min(100, ((d.user?.ads_watched_total || 0) % 20) * 5) + "%";
 }
 async function loadDash() { try { renderDash(await api("dashboard")); } catch (e) { toast(e.message, true); } }
 
-// WATCH AD
 document.getElementById("watchBtn").onclick = async () => {
   if (isDesktop) { toast("⚠️ Ads work only on mobile", true); return; }
   const btn = document.getElementById("watchBtn");
@@ -843,7 +851,6 @@ document.getElementById("addTaskBtn").onclick = async () => {
   finally { btn.disabled = false; btn.textContent = "➕ Publish Task"; }
 };
 
-/* ========== MINING (PREMIUM COUNTDOWN) ========== */
 async function loadMining() {
   try { renderMining(await api("mining_status")); } catch (e) { toast(e.message, true); }
 }
@@ -858,22 +865,19 @@ function renderMining(d) {
   const pick = document.getElementById("pickaxe");
 
   clearInterval(miningTimer);
-
   const RING_CIRCUMFERENCE = 515;
 
   if (d.canCollect) {
-    // 60 min done - collect
     statusEl.textContent = "Ready to collect";
     statusEl.className = "mining-status ready";
     timerEl.textContent = "00:00";
-    pendingEl.textContent = "0.15";
+    pendingEl.textContent = "15";
     ringFill.style.strokeDashoffset = "0";
     startBtn.style.display = "none";
     collectBtn.style.display = "block";
     collectBtn.onclick = collectMining;
     pick.style.animationDuration = "0.8s";
   } else if (!d.canStart && d.remaining > 0) {
-    // Mining in progress
     statusEl.textContent = "Mining in progress";
     statusEl.className = "mining-status active";
     startBtn.style.display = "none";
@@ -889,17 +893,16 @@ function renderMining(d) {
       timerEl.textContent = `${m}:${s}`;
       const progress = (total - left) / total;
       ringFill.style.strokeDashoffset = (RING_CIRCUMFERENCE * (1 - progress)).toString();
-      pendingEl.textContent = (0.15 * progress).toFixed(3);
+      pendingEl.textContent = (15 * progress).toFixed(2);
       left--;
     };
     tick();
     miningTimer = setInterval(tick, 1000);
   } else {
-    // Idle
     statusEl.textContent = "Ready to start";
     statusEl.className = "mining-status";
     timerEl.textContent = "60:00";
-    pendingEl.textContent = "0.000";
+    pendingEl.textContent = "0.00";
     ringFill.style.strokeDashoffset = RING_CIRCUMFERENCE.toString();
     startBtn.style.display = "block";
     startBtn.textContent = "⛏️ Start Mining (60 min)";
@@ -936,7 +939,7 @@ async function collectMining() {
 async function loadWithdraw() {
   try {
     const d = await api("withdraw_info");
-    document.getElementById("wBalance").textContent = Number(d.balance).toFixed(4);
+    document.getElementById("wBalance").textContent = Number(d.balance || 0).toFixed(4);
     if (d.wallet) document.getElementById("walletInput").value = d.wallet;
     const h = document.getElementById("withdrawHistory");
     h.innerHTML = !d.history?.length
@@ -971,7 +974,6 @@ document.getElementById("copyRefBtn").onclick = async () => {
   catch { toast("Copy failed", true); }
 };
 
-/* ========== ADMIN ========== */
 function adminTab(tab) {
   document.querySelectorAll(".admin-tab").forEach(t => t.style.display = "none");
   document.getElementById("adminTab-" + tab).style.display = "block";
@@ -1027,7 +1029,7 @@ async function loadWithdrawals() {
       el.innerHTML = `
         <div class="row"><span class="amount">${Number(w.amount).toFixed(2)} NOXV</span><span class="status status-${w.status}">${w.status}</span></div>
         <div class="meta">User: ${w.telegram_id}${w.username ? ' · @' + w.username : ''}</div>
-        <div class="meta">Wallet: ${w.wallet}</div>
+        <div class="meta">Wallet: ${w.address || w.wallet}</div>
         <div class="meta">Date: ${new Date(w.created_at).toLocaleString()}</div>
       `;
       if (w.status === "pending") {
@@ -1069,7 +1071,7 @@ async function loadFlagged() {
       el.innerHTML = `
         <div class="row"><span class="amount" style="font-size:14px;">${name}</span><span class="status status-flag">🚩 FLAGGED</span></div>
         <div class="meta">User ID: ${u.telegram_id}</div>
-        <div class="meta">Balance: ${Number(u.balance || 0).toFixed(2)} NOXV</div>
+        <div class="meta">Balance: ${Number(u.withdrawable_balance || 0).toFixed(2)} NOXV</div>
         <div class="meta">Reason: ${u.flag_reason || "Suspicious activity"}</div>
       `;
       const actions = document.createElement("div");
