@@ -538,7 +538,7 @@ body::before {
 
   <div id="page-mining" class="page">
     <div class="section-title">⛏️ Mining</div>
-    <div class="section-sub">60 min mining → 15 NOXV. Watch an ad to collect.</div>
+    <div class="section-sub">Start a 60 minute session, then collect 15 NOXV when it finishes.</div>
 
     <div class="mining-card">
       <div class="mining-ring">
@@ -562,7 +562,7 @@ body::before {
 
       <div class="mining-actions">
         <button class="btn" id="mineBtn">⛏️ Start Mining (60 min)</button>
-        <button class="btn secondary" id="mineCollectBtn" style="display:none;">💎 Collect (Watch Ad)</button>
+        <button class="btn secondary" id="mineCollectBtn" style="display:none;">💎 Collect 15 NOXV</button>
       </div>
     </div>
   </div>
@@ -592,7 +592,7 @@ body::before {
 
   <div id="page-referral" class="page">
     <div class="section-title">👥 Invite Friends</div>
-    <div class="section-sub">Your referral completes 10 ads → you earn 50 NOXV.</div>
+    <div class="section-sub">Your referral completes 5 verified ads → you earn 50 NOXV.</div>
 
     <div class="mini-stat">
       <div class="icon">🏆</div>
@@ -700,7 +700,7 @@ if (!tg.initData || tg.initData.length === 0) {
     document.getElementById("userName").textContent = fullName;
     document.getElementById("userHandle").textContent = u.username ? "@" + u.username : "";
     const av = document.getElementById("avatar");
-    if (u.photo_url) av.innerHTML = `<img src="${u.photo_url}" alt="">`;
+    if (u.photo_url) { const img = document.createElement("img"); img.src = u.photo_url; img.alt = ""; av.replaceChildren(img); }
     else av.textContent = (u.first_name || "U")[0].toUpperCase();
   }
 
@@ -720,7 +720,7 @@ if (!tg.initData || tg.initData.length === 0) {
     if (isDesktop) setTimeout(() => toast("ℹ️ Ads work only on mobile Telegram"), 1500);
     renderDash(d);
   } catch (e) {
-msg.innerHTML = "❌ " + e.message;
+msg.textContent = "❌ " + e.message;
     msg.style.color = "#ef4444";
     retry.style.display = "inline-block";
   }
@@ -734,15 +734,26 @@ function toast(m, err = false) {
   window._tt = setTimeout(() => t.className = "toast", 2800);
 }
 
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[char]);
+}
+
 async function api(action, payload = {}) {
   if (!tg || !tg.initData) throw new Error("Not connected to Telegram");
 
-  const r = await fetch(`${SUPABASE_URL}/functions/v1/${EDGE_FUNCTION}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "apikey": SUPABASE_PUBLISHABLE_KEY },
-    body: JSON.stringify({ initData: tg.initData, action, payload }),
-  });
-  const d = await r.json().catch(() => ({ ok: false, error: "Server error" }));
+  let r;
+  try {
+    r = await fetch(`${SUPABASE_URL}/functions/v1/${EDGE_FUNCTION}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "apikey": SUPABASE_PUBLISHABLE_KEY },
+      body: JSON.stringify({ initData: tg.initData, action, payload }),
+    });
+  } catch {
+    throw new Error("Network error. Check your connection and try again.");
+  }
+  const d = await r.json().catch(() => ({ ok: false, error: `Server returned HTTP ${r.status}` }));
   if (!d.ok) throw new Error(d.error || "Failed");
   return d;
 }
@@ -777,7 +788,7 @@ document.getElementById("watchBtn").onclick = async () => {
   try {
     const rewarded = await showRewardedAd();
     if (!rewarded) { toast("Ad not completed", true); return; }
-    const r = await api("ad_reward", { ad_token: "tkn_" + Date.now() });
+    const r = await api("ad_reward");
     toast(`✅ +10 NOXV added!`);
     if (r.referral_bonus_paid) toast("🎉 Your referrer earned 50 NOXV!");
     loadDash();
@@ -796,7 +807,7 @@ async function loadTasks() {
       const done = d.completed.includes(t.id);
       const div = document.createElement("div");
       div.className = "task-item";
-      div.innerHTML = `<div><div class="tt">${t.title}</div><div class="tr">💰 +${t.reward} NOXV</div></div><button class="${done ? 'done' : ''}">${done ? '✅ Done' : 'Go & Claim'}</button>`;
+      div.innerHTML = `<div><div class="tt">${escapeHTML(t.title)}</div><div class="tr">💰 +${Number(t.reward).toFixed(2)} NOXV</div></div><button class="${done ? 'done' : ''}">${done ? '✅ Done' : 'Join & Verify'}</button>`;
       list.appendChild(div);
       div.querySelector("button").onclick = async (ev) => {
         if (done) return;
@@ -812,7 +823,7 @@ async function loadTasks() {
         }, 4000);
       };
     });
-  } catch (e) { list.innerHTML = `<div class="empty">${e.message}</div>`; }
+  } catch (e) { list.textContent = e.message; }
 }
 
 document.getElementById("addTaskBtn").onclick = async () => {
@@ -907,16 +918,14 @@ async function startMining() {
 }
 
 async function collectMining() {
-  if (isDesktop) { toast("⚠️ Ads work only on mobile", true); return; }
   const btn = document.getElementById("mineCollectBtn");
-  btn.disabled = true; btn.textContent = "Loading ad...";
+  btn.disabled = true; btn.textContent = "Collecting...";
   try {
-    const rewarded = await showRewardedAd();
-    if (!rewarded) { toast("Ad not completed", true); return loadMining(); }
-    const r = await api("mining_collect", { ad_token: "m_" + Date.now() });
+    const r = await api("mining_collect");
     toast(`💎 +${r.reward} NOXV collected!`);
     loadMining(); loadDash();
   } catch (e) { toast(e.message, true); loadMining(); }
+  finally { btn.disabled = false; btn.textContent = "💎 Collect 15 NOXV"; }
 }
 
 async function loadWithdraw() {
@@ -995,7 +1004,7 @@ async function loadAdminStats() {
       </div>
       <div class="mini-stat"><div class="icon">💰</div><div class="info"><div class="lbl">TOTAL BALANCE HELD</div><div class="val highlight">${Number(s.total_balance || 0).toFixed(2)} NOXV</div></div></div>
     `;
-  } catch (e) { box.innerHTML = `<div class="empty">${e.message}</div>`; }
+  } catch (e) { box.textContent = e.message; }
 }
 
 async function loadWithdrawals() {
@@ -1011,8 +1020,8 @@ async function loadWithdrawals() {
       el.className = "wd-item";
       el.innerHTML = `
         <div class="row"><span class="amount">${Number(w.amount).toFixed(2)} NOXV</span><span class="status status-${w.status}">${w.status}</span></div>
-        <div class="meta">User: ${w.telegram_id}${w.username ? ' · @' + w.username : ''}</div>
-        <div class="meta">Wallet: ${w.address || w.wallet}</div>
+        <div class="meta">User: ${escapeHTML(w.telegram_id)}${w.username ? ' · @' + escapeHTML(w.username) : ''}</div>
+        <div class="meta">Wallet: ${escapeHTML(w.address || w.wallet)}</div>
         <div class="meta">Date: ${new Date(w.created_at).toLocaleString()}</div>
       `;
       if (w.status === "pending") {
@@ -1035,7 +1044,7 @@ async function loadWithdrawals() {
       }
       box.append(el);
     });
-  } catch (e) { box.innerHTML = `<div class="empty">${e.message}</div>`; }
+  } catch (e) { box.textContent = e.message; }
 }
 document.getElementById("refresh-wd").onclick = loadWithdrawals;
 
@@ -1048,14 +1057,14 @@ async function loadFlagged() {
     if (!list.length) { box.innerHTML = `<div class="empty"><span class="big-icon">✅</span>All clean!</div>`; return; }
     box.innerHTML = "";
     list.forEach(u => {
-      const name = [u.first_name, u.username ? "@" + u.username : ""].filter(Boolean).join(" ") || "User";
+      const name = escapeHTML([u.first_name, u.username ? "@" + u.username : ""].filter(Boolean).join(" ") || "User");
       const el = document.createElement("div");
       el.className = "wd-item";
       el.innerHTML = `
         <div class="row"><span class="amount" style="font-size:14px;">${name}</span><span class="status status-flag">🚩 FLAGGED</span></div>
-        <div class="meta">User ID: ${u.telegram_id}</div>
+        <div class="meta">User ID: ${escapeHTML(u.telegram_id)}</div>
         <div class="meta">Balance: ${Number(u.withdrawable_balance || 0).toFixed(2)} NOXV</div>
-        <div class="meta">Reason: ${u.flag_reason || "Suspicious activity"}</div>
+        <div class="meta">Reason: ${escapeHTML(u.flag_reason || "Suspicious activity")}</div>
       `;
       const actions = document.createElement("div");
       actions.className = "wd-actions";
@@ -1069,7 +1078,7 @@ async function loadFlagged() {
       el.append(actions);
       box.append(el);
     });
-  } catch (e) { box.innerHTML = `<div class="empty">${e.message}</div>`; }
+  } catch (e) { box.textContent = e.message; }
 }
 
 async function loadLogs() {
@@ -1084,20 +1093,22 @@ async function loadLogs() {
       const el = document.createElement("div");
       el.className = "wd-item";
       el.innerHTML = `
-        <div class="row"><span class="amount" style="font-size:13px;">${l.event_type}</span></div>
-        <div class="meta">User ${l.telegram_id}</div>
+        <div class="row"><span class="amount" style="font-size:13px;">${escapeHTML(l.event_type)}</span></div>
+        <div class="meta">User ${escapeHTML(l.telegram_id)}</div>
         <div class="meta">${new Date(l.created_at).toLocaleString()}</div>
-        ${l.details ? `<div class="meta">${l.details}</div>` : ""}
+        ${l.details ? `<div class="meta">${escapeHTML(l.details)}</div>` : ""}
       `;
       box.appendChild(el);
     });
-  } catch (e) { box.innerHTML = `<div class="empty">${e.message}</div>`; }
+  } catch (e) { box.textContent = e.message; }
 }
 
 connect();
 </script>
 </body>
 </html>
+
+
 
 
 
