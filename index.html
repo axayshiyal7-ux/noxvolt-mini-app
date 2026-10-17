@@ -453,12 +453,128 @@ body::before {
 .connect-box h1 { font-size: 32px; margin-bottom: 12px; background: linear-gradient(135deg, #fff, var(--gold), var(--gold)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
 .connect-box p { font-size: 14px; color: var(--dim); margin-bottom: 28px; line-height: 1.7; }
 .connect-box .retry { display: inline-block; padding: 16px 32px; border-radius: 18px; border: none; background: linear-gradient(135deg, var(--gold), var(--gold)); color: #fff; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 12px 40px rgba(244,189,53,.5); }
+
+/* NoxVolt Light Gold UI */
+:root {
+  color-scheme: light;
+  --bg: #f7f8fb; --text: #202938; --dim: #667085; --dim2: #8992a2;
+  --card: #ffffff; --card-hi: #fffaf0; --border: rgba(191,139,18,.18); --border-hi: rgba(191,139,18,.42);
+  --gold: #d99b12; --green: #16865b;
+}
+body { background: #f7f8fb; color: #202938; }
+body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.22), transparent 35%), radial-gradient(circle at 95% 20%, rgba(221,231,246,.45), transparent 40%); animation: none; }
+#mainApp { background: transparent; }
+.page { color: #202938; padding-bottom: 26px; }
+.topbar { padding: 18px 20px 8px; }
+.avatar { background: linear-gradient(145deg,#fff4d4,#ffe08a); color: #7d5808; border-color: #fff; box-shadow: 0 5px 16px rgba(151,111,25,.16); }
+.status-dot { background: #26a269; box-shadow: 0 0 9px rgba(38,162,105,.35); }
+.user-text .name { color:#202938; }
+.balance-card { background: linear-gradient(145deg,#fff 10%,#fff9e9 100%); border:1px solid rgba(212,158,32,.32); border-radius:24px; box-shadow:0 12px 32px rgba(31,41,55,.07), inset 0 1px #fff; padding:24px 18px; }
+.balance-card::before { opacity:.34; }
+.balance-label,.balance-token { color:#687386; }
+.balance-amount { background:linear-gradient(135deg,#a96e00,#f0bd36 56%,#b57b0a); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; filter:none; font-size:60px; }
+.price-chip { color:#8b6209; background:#fff7df; border-color:#edd28b; }
+.live-dot { background:#23a26d; box-shadow:0 0 8px rgba(35,162,109,.4); }
+.action-section { padding-bottom:20px; }
+.watch-btn { max-width:336px; margin:0 auto; padding:17px 18px; border-radius:18px; background:linear-gradient(135deg,#f6c84a,#e5aa1c); color:#2c2617; box-shadow:0 8px 20px rgba(194,143,27,.22), inset 0 1px rgba(255,255,255,.65); gap:10px; font-size:15px; }
+.watch-btn::after { opacity:.36; }
+.watch-btn b { font-size:13px; padding:5px 8px; border-radius:9px; background:rgba(255,255,255,.38); }
+.watch-btn [data-icon] svg,.watch-btn > span:first-child svg { width:19px; height:19px; }
+.progress-info,.progress-info b { color:#667085; }
+.progress-info b { color:#a36e00; }
+.progress-track { background:#e9edf3; }
+.progress-fill { background:linear-gradient(90deg,#e8b42d,#f5d36d); box-shadow:none; }
+.menu-list { padding:0 20px; }
+.menu-card { gap:12px; padding:14px; border-radius:18px; margin-bottom:9px; background:#fff; border:1px solid #e9edf3; box-shadow:0 4px 12px rgba(31,41,55,.035); backdrop-filter:none; }
+.menu-card:active { background:#fffaf0; border-color:#e7c66c; transform:translateY(-1px); }
+.menu-icon { width:44px; height:44px; border-radius:14px; background:#fff6dc; border:1px solid #f0d996; color:#946600; box-shadow:none; font-size:20px; }
+.menu-icon.cyan,.menu-icon.gold,.menu-icon.green { background:#fff6dc; border-color:#f0d996; color:#946600; }
+.menu-icon svg { width:22px; height:22px; }
+.menu-text .t { color:#202938; font-size:14px; }
+.menu-text .s { color:#737d8e; font-size:11.5px; }
+.menu-arrow { color:#b28a2c; }
+.nav { background:rgba(255,255,255,.96); border-top:1px solid #e8ebf0; box-shadow:0 -5px 18px rgba(31,41,55,.06); padding:10px 4px max(12px, env(safe-area-inset-bottom)); }
+.nav-item { color:#858d9a; }
+.nav-item .ic { filter:none; opacity:.68; }
+.nav-item.active { color:#9a6b05; }
+.nav-item.active .ic { color:#c58c12; transform:translateY(-2px) scale(1.08); text-shadow:none; }
+.nav-item.active::before { background:linear-gradient(90deg,#e4b02e,#f4d676); box-shadow:0 1px 5px rgba(201,151,29,.25); }
+.section-title { color:#202938; background:none; -webkit-text-fill-color:initial; font-size:21px; }
+.section-sub { color:#697487; }
+.input { color:#202938; background:#fff; border-color:#e2e7ee; }
+.input:focus { border-color:#d7a627; background:#fff; box-shadow:0 0 0 3px rgba(215,166,39,.12); }
+.input::placeholder { color:#98a1af; }
+.btn-secondary { background:#fff; border-color:#e4c66f; color:#805d0c; }
+.btn-secondary:active { background:#fff8e5; }
+.task-item,.mini-stat,.stat-box,.wd-item { background:#fff; border-color:#e7ebf1; backdrop-filter:none; box-shadow:0 4px 14px rgba(31,41,55,.035); }
+.task-item .tr { color:#a06d00; }
+.task-item button { background:linear-gradient(135deg,#f1c64a,#dfaa24); color:#34280c; box-shadow:0 4px 12px rgba(194,143,27,.18); }
+.task-item button.done { background:#e8f6ef; color:#19764f; border-color:#c8e9d8; }
+.mining-card { background:linear-gradient(155deg,#fff,#fff9e9); border:1px solid #ead28e; box-shadow:0 12px 28px rgba(31,41,55,.07); }
+.mining-card::before { opacity:.28; }
+.mining-ring .ring-bg { stroke:rgba(32,41,56,.08); }
+.mining-ring .ring-fill { filter:drop-shadow(0 0 5px rgba(219,168,36,.38)); }
+.mining-ring .ring-center { filter:none; }
+.ring-center svg { width:70px; height:70px; color:#b17b08; filter:drop-shadow(0 5px 5px rgba(150,102,0,.16)); }
+.mining-timer { background:linear-gradient(135deg,#9c6a00,#efba34); -webkit-background-clip:text; background-clip:text; filter:none; }
+.mining-status { color:#697487; }
+.mining-status.active { color:#16865b; }
+.mining-status.ready { color:#a16f06; }
+.mining-pending { color:#697487; }
+.mining-pending b,.mini-stat .val.highlight { background:linear-gradient(135deg,#a96e00,#dca91e); -webkit-background-clip:text; background-clip:text; }
+.mining-actions .btn { background:linear-gradient(135deg,#f3c647,#e0a91b); color:#34280c; box-shadow:0 8px 18px rgba(194,143,27,.2); }
+.mining-actions .btn.secondary { color:#805d0c; background:#fff; border-color:#e4c66f; }
+.mini-stat .icon { background:#fff6dc; border-color:#f0d996; color:#946600; }
+.stat-box .val { background:linear-gradient(135deg,#a96e00,#dca91e); -webkit-background-clip:text; background-clip:text; }
+.chart-bar { background:linear-gradient(180deg,#efc24a,#d9a21a); }
+.chart-bar .bar-val { color:#4b5563; }
+.ref-link { color:#79580b; background:#fffaf0; border-color:#efdfa9; }
+.admin-box { background:#fff; border:1px solid #e5eaf0; box-shadow:0 6px 18px rgba(31,41,55,.05); backdrop-filter:none; }
+.admin-box h3 { color:#72510a; }
+.admin-tab-button { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:10px 12px!important; font-size:11px!important; }
+.admin-tab-button.active { background:#fff2c9; border-color:#d6a72b; color:#664900; }
+.admin-tab { background:#fff; border:1px solid #e7ebf1; border-radius:18px; padding:12px; box-shadow:0 5px 16px rgba(31,41,55,.04); }
+#adminStatsBox .chart { margin:8px 4px 18px; }
+#adminStatsBox .stats-grid { gap:9px; }
+#adminStatsBox .stat-box { padding:14px; }
+#adminStatsBox .stat-box .lbl { color:#697487; }
+#wdList .wd-item { border-left:4px solid #e2b331; }
+#flaggedList .wd-item { border-left:4px solid #d74a4a; background:#fffafa; }
+#logsList .wd-item { border-left:4px solid #8c9bae; }
+.status-pending { background:#fff3ce; color:#7c5600; }
+.status-paid { background:#e5f5ec; color:#19764f; }
+.status-rejected,.status-flag { background:#ffeded; color:#b42318; }
+.toast { background:linear-gradient(135deg,#384252,#202938); color:#fff; box-shadow:0 10px 28px rgba(31,41,55,.2); }
+.loader { border-color:rgba(217,155,18,.24); border-top-color:#c18a0c; }
+.empty { color:#788395; }
+.field-label { display:flex; align-items:center; gap:8px; color:#303a49; font-size:14px; font-weight:800; margin:18px 0 10px; }
+.field-label svg { width:17px; height:17px; color:#a97708; }
+.admin-box [data-icon] svg,.section-title [data-icon] svg { width:22px; height:22px; color:#a97708; }
+.btn-secondary [data-icon] svg,.watch-btn [data-icon] svg { width:18px; height:18px; vertical-align:middle; margin-right:5px; }
+.connect-box { background:linear-gradient(160deg,#fff,#fff9e9); color:#202938; }
+.connect-box h1 { background:linear-gradient(135deg,#202938,#bd8610); -webkit-background-clip:text; background-clip:text; }
+.connect-box .retry { background:linear-gradient(135deg,#f3c647,#e0a91b); color:#34280c; }
+.ic svg { display:block; width:22px; height:22px; margin:0 auto; }
+.menu-icon [data-icon],.mini-stat .icon [data-icon] { display:flex; align-items:center; justify-content:center; }
+.menu-icon svg,.mini-stat .icon svg { width:22px; height:22px; }
+.section-title [data-icon] { display:inline-flex; align-items:center; }
+.logo-big svg { width:78px; height:78px; color:#dda91f; stroke-width:1.7; filter:drop-shadow(0 8px 14px rgba(180,126,12,.18)); }
+.nav-item.active .ic { opacity:1; }
+.admin-tab-button { min-height:40px; }
+.admin-tab-button.active { box-shadow:inset 0 0 0 1px rgba(186,137,14,.12); }
+.ring-center { display:flex; align-items:center; justify-content:center; }
+.ring-center svg { animation: miningToolFloat 2s ease-in-out infinite; }
+@keyframes miningToolFloat { 0%,100% { transform:translateY(0) rotate(-5deg); } 50% { transform:translateY(-7px) rotate(6deg); } }
+.mining-card::before { animation: miningGlow 7s ease-in-out infinite alternate; }
+@keyframes miningGlow { from { transform:translate(-2%,0) rotate(0); opacity:.2; } to { transform:translate(2%,1%) rotate(10deg); opacity:.42; } }
+.status-pending { font-weight:900; }
+@media (max-width:380px) { .watch-btn { padding:15px 12px; font-size:14px; } .menu-card { padding:12px; } .menu-icon { width:40px; height:40px; } .admin-tab-button { padding:9px 9px!important; } }
 </style>
 </head>
 <body>
 
 <div id="connectBox" class="connect-box">
-  <div class="logo-big">⚡</div>
+  <div class="logo-big"><span data-icon="bolt"></span></div>
   <h1>NoxVolt</h1>
   <p id="connectMsg">Connecting to Telegram...</p>
   <button class="retry" id="retryBtn" style="display:none;" onclick="connect()">🔄 Retry</button>
@@ -470,7 +586,7 @@ body::before {
     <div class="topbar">
       <div class="user-info">
         <div class="avatar-wrap">
-          <div class="avatar" id="avatar">👤</div>
+          <div class="avatar" id="avatar"><span data-icon="user"></span></div>
           <div class="status-dot"></div>
         </div>
         <div class="user-text">
@@ -489,7 +605,7 @@ body::before {
     </div>
 
     <div class="action-section">
-      <button class="watch-btn" id="watchBtn">▶️ Watch Ad &nbsp;·&nbsp; +10 NOXV</button>
+      <button class="watch-btn" id="watchBtn"><span data-icon="play"></span><span>Watch Ad</span><b>+10 NOXV</b></button>
       <div class="progress-wrap">
         <div class="progress-info">
           <span>Ads watched</span>
@@ -501,22 +617,22 @@ body::before {
 
     <div class="menu-list">
       <div class="menu-card" onclick="go('referral')">
-        <div class="menu-icon gold">👥</div>
+        <div class="menu-icon gold"><span data-icon="users"></span></div>
         <div class="menu-text"><div class="t">Referral</div><div class="s">Invite friends · Earn 50 NOXV each</div></div>
         <div class="menu-arrow">›</div>
       </div>
       <div class="menu-card" onclick="go('tasks')">
-        <div class="menu-icon cyan">📋</div>
+        <div class="menu-icon cyan"><span data-icon="tasks"></span></div>
         <div class="menu-text"><div class="t">Tasks</div><div class="s">Complete tasks & earn NOXV</div></div>
         <div class="menu-arrow">›</div>
       </div>
       <div class="menu-card" onclick="go('mining')">
-        <div class="menu-icon">⛏️</div>
+        <div class="menu-icon"><span data-icon="pickaxe"></span></div>
         <div class="menu-text"><div class="t">Mining</div><div class="s">Mine 15 NOXV every hour</div></div>
         <div class="menu-arrow">›</div>
       </div>
       <div class="menu-card" onclick="go('withdraw')">
-        <div class="menu-icon green">💸</div>
+        <div class="menu-icon green"><span data-icon="wallet"></span></div>
         <div class="menu-text"><div class="t">Withdraw</div><div class="s">Min 500 NOXV · TON network</div></div>
         <div class="menu-arrow">›</div>
       </div>
@@ -524,10 +640,10 @@ body::before {
   </div>
 
   <div id="page-tasks" class="page">
-    <div class="section-title">📋 Tasks</div>
+    <div class="section-title"><span data-icon="tasks"></span>Tasks</div>
     <div class="section-sub">Join channels and earn NOXV. Each task claims once.</div>
     <div id="adminTaskBox" class="admin-box" style="display:none;">
-      <h3>⚙️ Admin: Add Task</h3>
+      <h3><span data-icon="settings"></span>Admin: Add Task</h3>
       <input class="input" id="taskTitle" placeholder="Task title">
       <input class="input" id="taskLink" placeholder="https://t.me/channelname">
       <input class="input" id="taskReward" type="number" step="0.1" placeholder="Reward NOXV" value="10">
@@ -537,7 +653,7 @@ body::before {
   </div>
 
   <div id="page-mining" class="page">
-    <div class="section-title">⛏️ Mining</div>
+    <div class="section-title"><span data-icon="pickaxe"></span>Mining</div>
     <div class="section-sub">Start a 60 minute session, then collect 15 NOXV when it finishes.</div>
 
     <div class="mining-card">
@@ -553,7 +669,7 @@ body::before {
           <circle class="ring-fill" id="ringFill" cx="90" cy="90" r="82"
             stroke-dasharray="515" stroke-dashoffset="515"/>
         </svg>
-        <div class="ring-center" id="pickaxe">⛏️</div>
+        <div class="ring-center" id="pickaxe"><span data-icon="pickaxe"></span></div>
       </div>
 
       <div class="mining-status" id="mineStatus">Ready to start</div>
@@ -568,11 +684,11 @@ body::before {
   </div>
 
   <div id="page-withdraw" class="page">
-    <div class="section-title">💸 Withdraw</div>
+    <div class="section-title"><span data-icon="wallet"></span>Withdraw</div>
     <div class="section-sub">Minimum 500 NOXV · TON Network</div>
 
     <div class="mini-stat">
-      <div class="icon">💰</div>
+      <div class="icon"><span data-icon="coin"></span></div>
       <div class="info">
         <div class="lbl">WITHDRAWABLE BALANCE</div>
         <div class="val highlight"><span id="wBalance">0.0000</span> NOXV</div>
@@ -580,22 +696,22 @@ body::before {
     </div>
 
     <div style="margin-top: 22px;"></div>
-    <div style="font-size: 14px; font-weight: 800; margin-bottom: 10px;">👛 Wallet Address</div>
+    <div class="field-label"><span data-icon="wallet"></span>Wallet Address</div>
     <input class="input" id="walletInput" placeholder="Your TON wallet address">
-    <button class="btn-secondary" id="saveWalletBtn" style="margin-bottom:12px;">💾 Save Wallet</button>
-    <button class="watch-btn" id="withdrawBtn">📤 Request Withdraw</button>
+    <button class="btn-secondary" id="saveWalletBtn" style="margin-bottom:12px;"><span data-icon="save"></span>Save Wallet</button>
+    <button class="watch-btn" id="withdrawBtn"><span data-icon="send"></span>Request Withdraw</button>
 
     <div style="margin-top: 26px;"></div>
-    <div style="font-size: 14px; font-weight: 800; margin-bottom: 10px;">📜 History</div>
+    <div class="field-label"><span data-icon="history"></span>History</div>
     <div id="withdrawHistory"><div class="empty">No withdrawals yet</div></div>
   </div>
 
   <div id="page-referral" class="page">
-    <div class="section-title">👥 Invite Friends</div>
-    <div class="section-sub">Your referral completes 5 verified ads → you earn 50 NOXV.</div>
+    <div class="section-title"><span data-icon="users"></span>Invite Friends</div>
+    <div class="section-sub">Your referral completes 5 rewarded ads → you earn 50 NOXV.</div>
 
     <div class="mini-stat">
-      <div class="icon">🏆</div>
+      <div class="icon"><span data-icon="trophy"></span></div>
       <div class="info">
         <div class="lbl">TOTAL REFERRALS</div>
         <div class="val highlight" id="refCount" style="font-size: 26px;">0</div>
@@ -603,25 +719,25 @@ body::before {
     </div>
 
     <div style="margin-top: 22px;"></div>
-    <div style="font-size: 14px; font-weight: 800; margin-bottom: 10px;">🔗 Your Referral Link</div>
+    <div class="field-label"><span data-icon="link"></span>Your Referral Link</div>
     <div class="ref-link" id="refLink">Loading...</div>
-    <button class="btn-secondary" id="copyRefBtn" style="margin-top: 12px;">📋 Copy Link</button>
+    <button class="btn-secondary" id="copyRefBtn" style="margin-top: 12px;"><span data-icon="copy"></span>Copy Link</button>
   </div>
 
   <div id="page-admin" class="page">
-    <div class="section-title">⚙️ Admin Panel</div>
+    <div class="section-title"><span data-icon="settings"></span>Admin Panel</div>
     <div class="section-sub">Full control center</div>
 
     <div style="display: flex; gap: 8px; margin-bottom: 18px; overflow-x: auto; padding-bottom: 4px;">
-      <button class="btn-secondary" style="width:auto; padding:10px 16px; font-size:12px; white-space:nowrap; margin:0;" onclick="adminTab('stats')">📊 Stats</button>
-      <button class="btn-secondary" style="width:auto; padding:10px 16px; font-size:12px; white-space:nowrap; margin:0;" onclick="adminTab('withdrawals')">💸 Withdrawals</button>
-      <button class="btn-secondary" style="width:auto; padding:10px 16px; font-size:12px; white-space:nowrap; margin:0;" onclick="adminTab('flagged')">🚩 Flagged</button>
-      <button class="btn-secondary" style="width:auto; padding:10px 16px; font-size:12px; white-space:nowrap; margin:0;" onclick="adminTab('logs')">📜 Logs</button>
+      <button class="btn-secondary admin-tab-button" onclick="adminTab('stats')"><span data-icon="chart"></span>Stats</button>
+      <button class="btn-secondary admin-tab-button" onclick="adminTab('withdrawals')"><span data-icon="wallet"></span>Withdrawals</button>
+      <button class="btn-secondary admin-tab-button" onclick="adminTab('flagged')"><span data-icon="flag"></span>Flagged</button>
+      <button class="btn-secondary admin-tab-button" onclick="adminTab('logs')"><span data-icon="history"></span>Logs</button>
     </div>
 
     <div id="adminTab-stats" class="admin-tab"><div id="adminStatsBox"><div class="empty"><span class="loader"></span> Loading...</div></div></div>
     <div id="adminTab-withdrawals" class="admin-tab" style="display:none;">
-      <button class="btn-secondary" id="refresh-wd" style="margin-bottom:14px;">🔄 Refresh</button>
+      <button class="btn-secondary" id="refresh-wd" style="margin-bottom:14px;"><span data-icon="refresh"></span>Refresh</button>
       <div id="wdList"><div class="empty"><span class="loader"></span> Loading...</div></div>
     </div>
     <div id="adminTab-flagged" class="admin-tab" style="display:none;"><div id="flaggedList"><div class="empty"><span class="loader"></span> Loading...</div></div></div>
@@ -629,12 +745,12 @@ body::before {
   </div>
 
   <div class="nav">
-    <div class="nav-item active" data-page="home"><span class="ic">🏠</span>Home</div>
-    <div class="nav-item" data-page="tasks"><span class="ic">📋</span>Tasks</div>
-    <div class="nav-item" data-page="mining"><span class="ic">⛏️</span>Mining</div>
-    <div class="nav-item" data-page="withdraw"><span class="ic">💸</span>Withdraw</div>
-    <div class="nav-item" data-page="referral"><span class="ic">👥</span>Referral</div>
-    <div class="nav-item hidden" id="adminNav" data-page="admin"><span class="ic">⚙️</span>Admin</div>
+    <div class="nav-item active" data-page="home"><span class="ic" data-icon="home"></span>Home</div>
+    <div class="nav-item" data-page="tasks"><span class="ic" data-icon="tasks"></span>Tasks</div>
+    <div class="nav-item" data-page="mining"><span class="ic" data-icon="pickaxe"></span>Mining</div>
+    <div class="nav-item" data-page="withdraw"><span class="ic" data-icon="wallet"></span>Withdraw</div>
+    <div class="nav-item" data-page="referral"><span class="ic" data-icon="users"></span>Referral</div>
+    <div class="nav-item hidden" id="adminNav" data-page="admin"><span class="ic" data-icon="settings"></span>Admin</div>
   </div>
 </div>
 
@@ -650,6 +766,33 @@ let tg = null;
 let adController = null;
 let isAdmin = false;
 let miningTimer = null;
+let withdrawalPollTimer = null;
+let knownPendingWithdrawals = null;
+
+const ICON_PATHS = {
+  user: '<circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/>',
+  home: '<path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9M9 21v-7h6v7"/>',
+  tasks: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6M8.5 11h7M8.5 15h7"/>',
+  pickaxe: '<path d="m4 19 8-8M7 6c3-3 8-3 11 0l2 2-4 4-2-2c-1-1-3-1-4 0"/><path d="m13 11 7 7"/>',
+  wallet: '<rect x="3" y="6" width="18" height="15" rx="3"/><path d="M3 9V6a3 3 0 0 1 3-3h12M16 14h5"/><circle cx="16" cy="14" r=".7"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  settings: '<circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.7a8 8 0 0 1-1.7 1l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.7-1l-1.7.7-1.4-2.4 1.4-1.1a7 7 0 0 1 0-2l-1.4-1.1 1.4-2.4 1.7.7a8 8 0 0 1 1.7-1l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.7 1l1.7-.7 1.4 2.4-1.4 1.1a7 7 0 0 1 0 2Z"/>',
+  coin: '<circle cx="12" cy="12" r="9"/><path d="M15 8.5c-.7-.7-1.7-1-3-1-1.7 0-3 .8-3 2s1.2 1.8 3 2 3 .8 3 2-1.3 2-3 2c-1.3 0-2.3-.3-3-1M12 6v12"/>',
+  trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4ZM7 7H4v2a4 4 0 0 0 4 4M17 7h3v2a4 4 0 0 1-4 4"/>',
+  link: '<path d="M10 13a5 5 0 0 0 7.1 0l3-3A5 5 0 0 0 13 2.9l-1.7 1.7M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7"/>',
+  copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>',
+  chart: '<path d="M4 19V5M4 19h17M8 16v-4M13 16V8M18 16V5"/>',
+  flag: '<path d="M5 21V4M5 5h13l-2 4 2 4H5"/>',
+  history: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>',
+  refresh: '<path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9A7 7 0 0 1 18 6l2 2M4 16l2 2a7 7 0 0 0 12.5-3"/>',
+  save: '<path d="M5 3h12l4 4v14H3V3h2ZM7 3v6h10V3M7 21v-7h10v7"/>',
+  send: '<path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13"/>',
+  play: '<circle cx="12" cy="12" r="9"/><path d="m10 8 6 4-6 4z"/>',
+  bolt: '<path d="M13 2 4 14h7l-1 8 10-13h-7l1-7Z"/>'
+};
+function iconSVG(name) { return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON_PATHS[name] || ICON_PATHS.coin}</svg>`; }
+function renderIcons(root = document) { root.querySelectorAll("[data-icon]").forEach(el => { el.innerHTML = iconSVG(el.dataset.icon); }); }
+renderIcons();
 
 window.addEventListener("load", () => {
   if (window.Adsgram) {
@@ -784,7 +927,7 @@ async function loadDash() { try { renderDash(await api("dashboard")); } catch (e
 document.getElementById("watchBtn").onclick = async () => {
   if (isDesktop) { toast("⚠️ Ads work only on mobile", true); return; }
   const btn = document.getElementById("watchBtn");
-  btn.disabled = true; btn.textContent = "Loading ad...";
+  btn.disabled = true; btn.innerHTML = `<span>${iconSVG("refresh")}</span><span>Loading ad...</span>`;
   try {
     const rewarded = await showRewardedAd();
     if (!rewarded) { toast("Ad not completed", true); return; }
@@ -793,7 +936,7 @@ document.getElementById("watchBtn").onclick = async () => {
     if (r.referral_bonus_paid) toast("🎉 Your referrer earned 50 NOXV!");
     loadDash();
   } catch (e) { toast(e.message || "Ad not available", true); }
-  finally { btn.disabled = false; btn.textContent = "▶️ Watch Ad  ·  +10 NOXV"; }
+  finally { btn.disabled = false; btn.innerHTML = `<span>${iconSVG("play")}</span><span>Watch Ad</span><b>+10 NOXV</b>`; }
 };
 
 async function loadTasks() {
@@ -899,7 +1042,7 @@ function renderMining(d) {
     pendingEl.textContent = "0.00";
     ringFill.style.strokeDashoffset = RING_CIRCUMFERENCE.toString();
     startBtn.style.display = "block";
-    startBtn.textContent = "⛏️ Start Mining (60 min)";
+    startBtn.innerHTML = `${iconSVG("pickaxe")} Start Mining (60 min)`;
     startBtn.disabled = false;
     startBtn.onclick = startMining;
     collectBtn.style.display = "none";
@@ -925,7 +1068,7 @@ async function collectMining() {
     toast(`💎 +${r.reward} NOXV collected!`);
     loadMining(); loadDash();
   } catch (e) { toast(e.message, true); loadMining(); }
-  finally { btn.disabled = false; btn.textContent = "💎 Collect 15 NOXV"; }
+  finally { btn.disabled = false; btn.innerHTML = `${iconSVG("coin")} Collect 15 NOXV`; }
 }
 
 async function loadWithdraw() {
@@ -948,7 +1091,11 @@ document.getElementById("saveWalletBtn").onclick = async () => {
 document.getElementById("withdrawBtn").onclick = async () => {
   const w = document.getElementById("walletInput").value.trim();
   if (w.length < 10) return toast("Save wallet first", true);
-  try { await api("withdraw_request", { wallet: w }); toast("✅ Request submitted!"); loadWithdraw(); loadDash(); }
+  try {
+    const result = await api("withdraw_request", { wallet: w });
+    toast(result.notification_sent ? "Request submitted; admin notified" : "Request submitted; admin bot notification failed");
+    loadWithdraw(); loadDash();
+  }
   catch (e) { toast(e.message, true); }
 };
 
@@ -967,10 +1114,16 @@ document.getElementById("copyRefBtn").onclick = async () => {
 };
 
 function adminTab(tab) {
+  if (withdrawalPollTimer) { clearInterval(withdrawalPollTimer); withdrawalPollTimer = null; }
   document.querySelectorAll(".admin-tab").forEach(t => t.style.display = "none");
   document.getElementById("adminTab-" + tab).style.display = "block";
+  document.querySelectorAll(".admin-tab-button").forEach(button => button.classList.toggle("active", button.getAttribute("onclick")?.includes(`'${tab}'`)));
   if (tab === "stats") loadAdminStats();
-  if (tab === "withdrawals") loadWithdrawals();
+  if (tab === "withdrawals") {
+    knownPendingWithdrawals = null;
+    loadWithdrawals();
+    withdrawalPollTimer = setInterval(() => { if (document.getElementById("page-admin")?.classList.contains("active") && document.getElementById("adminTab-withdrawals").style.display !== "none") loadWithdrawals(true); }, 10000);
+  }
   if (tab === "flagged") loadFlagged();
   if (tab === "logs") loadLogs();
 }
@@ -1002,18 +1155,25 @@ async function loadAdminStats() {
         <div class="stat-box"><div class="lbl">Pending WDs</div><div class="val warn">${s.pending_withdrawals || 0}</div></div>
         <div class="stat-box"><div class="lbl">Total Paid</div><div class="val green">${Number(s.total_paid || 0).toFixed(2)}</div></div>
       </div>
-      <div class="mini-stat"><div class="icon">💰</div><div class="info"><div class="lbl">TOTAL BALANCE HELD</div><div class="val highlight">${Number(s.total_balance || 0).toFixed(2)} NOXV</div></div></div>
+      <div class="mini-stat"><div class="icon"><span data-icon="coin"></span></div><div class="info"><div class="lbl">TOTAL BALANCE HELD</div><div class="val highlight">${Number(s.total_balance || 0).toFixed(2)} NOXV</div></div></div>
     `;
+    renderIcons(box);
   } catch (e) { box.textContent = e.message; }
 }
 
-async function loadWithdrawals() {
+async function loadWithdrawals(silent = false) {
   const box = document.getElementById("wdList");
-  box.innerHTML = `<div class="empty"><span class="loader"></span> Loading...</div>`;
+  if (!silent) box.innerHTML = `<div class="empty"><span class="loader"></span> Loading...</div>`;
   try {
     const d = await api("admin_list_withdrawals");
     const list = d.withdrawals || [];
-    if (!list.length) { box.innerHTML = `<div class="empty"><span class="big-icon">📭</span>No requests</div>`; return; }
+    const pendingIds = list.filter(w => w.status === "pending").map(w => String(w.id));
+    if (knownPendingWithdrawals !== null) {
+      const fresh = list.filter(w => w.status === "pending" && !knownPendingWithdrawals.has(String(w.id)));
+      fresh.forEach(w => toast(`New withdrawal: ${Number(w.amount).toFixed(2)} NOXV`));
+    }
+    knownPendingWithdrawals = new Set(pendingIds);
+    if (!list.length) { box.innerHTML = `<div class="empty"><span class="big-icon">${iconSVG("wallet")}</span>No requests</div>`; return; }
     box.innerHTML = "";
     list.forEach(w => {
       const el = document.createElement("div");
