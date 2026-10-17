@@ -1,0 +1,3 @@
+# Function can be invoked from the Telegram Mini App; the handler verifies Telegram initData.
+[functions.noxvolt-api]
+verify_jwt = false
