@@ -818,8 +818,6 @@ async function showRewardedAd() {
   return true;
 }
 
-const isDesktop = !/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-
 async function connect() {
   const msg = document.getElementById("connectMsg");
   const retry = document.getElementById("retryBtn");
@@ -870,7 +868,6 @@ if (!tg.initData || tg.initData.length === 0) {
       document.getElementById("adminTaskBox").style.display = "block";
     }
 
-    if (isDesktop) setTimeout(() => toast("ℹ️ Ads work only on mobile Telegram"), 1500);
     renderDash(d);
   } catch (e) {
 msg.textContent = "❌ " + e.message;
@@ -935,7 +932,6 @@ function renderDash(d) {
 async function loadDash() { try { renderDash(await api("dashboard")); } catch (e) { toast(e.message, true); } }
 
 document.getElementById("watchBtn").onclick = async () => {
-  if (isDesktop) { toast("⚠️ Ads work only on mobile", true); return; }
   const btn = document.getElementById("watchBtn");
   btn.disabled = true; btn.innerHTML = `<span>${iconSVG("refresh")}</span><span>Loading ad...</span>`;
   try {
