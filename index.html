@@ -432,8 +432,8 @@ body::before {
 }
 
 .toast {
-  position: fixed; top: 24px; left: 50%;
-  transform: translateX(-50%) translateY(-140px);
+  position: fixed; top: auto; bottom: 82px; left: 50%;
+  transform: translateX(-50%) translateY(140px);
   background: linear-gradient(135deg, rgba(244,189,53,.95), rgba(255,220,112,.95));
   color: #fff; padding: 16px 26px;
   border-radius: 20px; font-size: 13.5px; font-weight: 700;
@@ -445,6 +445,16 @@ body::before {
 .toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
 .ad-provider-buttons { display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
 .watch-btn.ad-provider-btn { height:66px; min-height:66px; padding:12px 18px; border:1px solid rgba(255,255,255,.38); border-radius:18px; background:linear-gradient(135deg,#f6c84a,#e5aa1c); color:#2c2617; font-size:15px; font-weight:800; box-shadow:0 8px 20px rgba(194,143,27,.22),inset 0 1px rgba(255,255,255,.65); }
+.ad-reward-status { display:none; margin-top:10px; padding:11px 13px; border:1px solid rgba(194,143,27,.22); border-radius:14px; background:#fffdf6; color:#657084; font-size:11px; line-height:1.45; }
+.ad-reward-status.show { display:block; }
+.ad-pending-card { display:none; margin-top:10px; padding:13px 14px; border:1px solid rgba(194,143,27,.25); border-radius:15px; background:linear-gradient(135deg,#fffdf6,#fff); box-shadow:0 6px 18px rgba(60,48,17,.05); }
+.ad-pending-card.show { display:block; }
+.ad-pending-title { display:flex; align-items:center; justify-content:space-between; gap:10px; color:#263246; font-size:12px; font-weight:900; }
+.ad-pending-total { color:#a97708; white-space:nowrap; }
+.ad-pending-list { display:grid; gap:7px; margin-top:9px; }
+.ad-pending-row { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; color:#465267; font-size:11px; }
+.ad-pending-row .state { display:block; margin-top:2px; color:#8791a0; font-size:10px; }
+.ad-pending-row .reward { color:#a97708; font-weight:900; white-space:nowrap; }
 .watch-btn.ad-provider-btn:disabled { opacity:.55; box-shadow:none; cursor:wait; }
 .watch-btn.ad-provider-btn.giga-btn { background:linear-gradient(135deg,#b9ed20,#78bd19); color:#18210a; box-shadow:0 8px 20px rgba(120,189,25,.24),inset 0 1px rgba(255,255,255,.55); }
 .ad-provider-note { margin-top:7px; color:var(--dim); font-size:10px; line-height:1.4; text-align:center; }
@@ -614,8 +624,13 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
     <div class="action-section">
       <button class="watch-btn" id="watchBtn"><span data-icon="play"></span><span>Watch AdsGalaxy</span><b>+5 NOXV</b></button>
       <div class="ad-provider-buttons">
-        <button class="watch-btn ad-provider-btn" id="richAdsBtn"><span data-icon="play"></span><span>Watch RichAds</span></button>
-        <button class="watch-btn ad-provider-btn giga-btn" id="gigaBtn" type="button"><span data-icon="play"></span><span>Watch GigaPub</span></button>
+        <button class="watch-btn ad-provider-btn" id="richAdsBtn"><span data-icon="play"></span><span>Watch RichAds</span><b>+5 NOXV</b></button>
+        <button class="watch-btn ad-provider-btn giga-btn" id="gigaBtn" type="button"><span data-icon="play"></span><span>Watch GigaPub</span><b>+5 NOXV</b></button>
+      </div>
+      <div class="ad-reward-status" id="adRewardStatus" aria-live="polite"></div>
+      <div class="ad-pending-card" id="adPendingCard" aria-live="polite">
+        <div class="ad-pending-title"><span>Pending ad rewards</span><span class="ad-pending-total" id="adPendingTotal">0 NOXV</span></div>
+        <div class="ad-pending-list" id="adPendingList"></div>
       </div>
       <div class="ad-provider-note">AdsGalaxy rewards are verified server-side. RichAds and GigaPub rewards need server-side verification before NOXV is credited.</div>
       <div class="progress-wrap">
@@ -779,6 +794,7 @@ let isAdmin = false;
 let miningTimer = null;
 let withdrawalPollTimer = null;
 let knownPendingWithdrawals = null;
+const AD_REWARD_NOXV = 5;
 
 const ICON_PATHS = {
   user: '<circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/>',
@@ -915,6 +931,9 @@ if (!tg.initData || tg.initData.length === 0) {
     }
 
     renderDash(d);
+    renderPendingAdRewards();
+    if (!window._adRewardPoller) window._adRewardPoller = window.setInterval(pollPendingAdRewards, 10000);
+    pollPendingAdRewards();
   } catch (e) {
 msg.textContent = "❌ " + e.message;
     msg.style.color = "#ef4444";
@@ -977,23 +996,83 @@ function renderDash(d) {
 }
 async function loadDash() { try { renderDash(await api("dashboard")); } catch (e) { toast(e.message, true); } }
 
+function adPendingStorageKey() {
+  const uid = tg?.initDataUnsafe?.user?.id;
+  return uid ? `noxvolt_pending_ads_${uid}` : "noxvolt_pending_ads";
+}
+function getPendingAdRewards() {
+  try {
+    const rows = JSON.parse(localStorage.getItem(adPendingStorageKey()) || "[]");
+    return Array.isArray(rows) ? rows.filter(x => x && typeof x.provider === "string") : [];
+  } catch { return []; }
+}
+function savePendingAdRewards(rows) {
+  try { localStorage.setItem(adPendingStorageKey(), JSON.stringify(rows)); } catch {}
+  renderPendingAdRewards(rows);
+}
+function renderPendingAdRewards(rows = getPendingAdRewards()) {
+  const card = document.getElementById("adPendingCard");
+  const list = document.getElementById("adPendingList");
+  if (!card || !list) return;
+  card.classList.toggle("show", rows.length > 0);
+  document.getElementById("adPendingTotal").textContent = `${(rows.length * AD_REWARD_NOXV).toFixed(0)} NOXV`;
+  list.innerHTML = rows.map(row => {
+    const provider = row.provider === "adsgalaxy" ? "AdsGalaxy" : row.provider === "richads" ? "RichAds" : "GigaPub";
+    const state = row.provider === "adsgalaxy"
+      ? "Waiting for signed AdsGalaxy confirmation"
+      : "Waiting for provider callback setup; not credited yet";
+    return `<div class="ad-pending-row"><div><b>${provider}</b><span class="state">${state}</span></div><span class="reward">+${AD_REWARD_NOXV} NOXV</span></div>`;
+  }).join("");
+}
+function setAdRewardStatus(message, error = false) {
+  const el = document.getElementById("adRewardStatus");
+  el.textContent = message;
+  el.classList.add("show");
+  el.style.color = error ? "#b42318" : "#657084";
+}
+function addPendingAdReward(provider, requestId = null) {
+  const rows = getPendingAdRewards();
+  if (requestId && rows.some(row => row.request_id === requestId)) return;
+  rows.unshift({ provider, request_id: requestId, created_at: new Date().toISOString() });
+  savePendingAdRewards(rows.slice(0, 30));
+}
+async function pollPendingAdRewards() {
+  if (!tg?.initData) return;
+  const rows = getPendingAdRewards();
+  let changed = false;
+  for (const row of rows) {
+    if (row.provider !== "adsgalaxy" || !row.request_id) continue;
+    try {
+      const result = await api("ad_reward_status", { request_id: row.request_id });
+      if (result.verified) {
+        const current = getPendingAdRewards().filter(item => item.request_id !== row.request_id);
+        savePendingAdRewards(current);
+        setAdRewardStatus("✅ AdsGalaxy verified your ad. +5 NOXV was credited.");
+        changed = true;
+      }
+    } catch { /* Keep the pending item and retry on the next poll. */ }
+  }
+  if (changed) await loadDash();
+}
+
 async function watchProviderAd(provider, btn) {
   const original = btn.innerHTML;
   btn.disabled = true; btn.textContent = "Loading ad...";
   try {
+    setAdRewardStatus(`Opening ${provider === "adsgalaxy" ? "AdsGalaxy" : provider === "richads" ? "RichAds" : "GigaPub"} ad...`);
     const result = await showRewardedAd(provider);
     if (provider === "gigapub") {
       if (!result?.completed) {
-        toast("GigaPub ad was not completed", true);
+        setAdRewardStatus("GigaPub did not confirm ad completion. No reward was added.", true);
         return;
       }
-      // The browser promise only reports local completion. Do not credit the
-      // withdrawable wallet unless GigaPub provides a server-verifiable event.
-      toast("GigaPub ad completed. NOXV reward verification is not configured.", true);
+      addPendingAdReward(provider);
+      setAdRewardStatus("GigaPub ad completed. +5 NOXV is shown as pending; it will only be credited after GigaPub enables a server callback.");
       return;
     }
     if (provider === "richads") {
-      toast("RichAds finished. NOXV reward needs RichAds verified reward tracking enabled by their manager.");
+      addPendingAdReward(provider);
+      setAdRewardStatus("RichAds ad completed. +5 NOXV is shown as pending; it will only be credited after RichAds enables a server callback.");
       return;
     }
     const requestId = result?.request_id;
@@ -1001,22 +1080,23 @@ async function watchProviderAd(provider, btn) {
       console.warn("AdsGalaxy completion did not include a usable request_id", result);
       throw new Error("Ad finished, but its verification ID was missing. No NOXV was added.");
     }
+    addPendingAdReward(provider, requestId);
     btn.textContent = "Verifying completion...";
     for (let attempt = 0; attempt < 20; attempt++) {
       const status = await api("ad_reward_status", { request_id: requestId });
       if (status.verified) {
-        toast("✅ +5 NOXV added after verification!");
+        savePendingAdRewards(getPendingAdRewards().filter(row => row.request_id !== requestId));
+        setAdRewardStatus("✅ AdsGalaxy verified your ad. +5 NOXV was credited.");
         await loadDash();
         return;
       }
       await new Promise(resolve => setTimeout(resolve, 1500));
     }
-    toast("Ad completed. Reward verification is delayed; NOXV will appear after AdsGalaxy confirms it.");
-    window.setTimeout(loadDash, 30000);
+    setAdRewardStatus("Ad completed. +5 NOXV is pending while AdsGalaxy sends its signed confirmation. We will keep checking.");
   } catch (e) {
     console.error(`${provider} ad error`, e);
     const message = typeof e?.message === "string" ? e.message : "Ad could not be loaded. Try again later.";
-    toast(message, true);
+    setAdRewardStatus(message, true);
   } finally { btn.disabled = false; btn.innerHTML = original; }
 }
 document.getElementById("watchBtn").onclick = (event) => watchProviderAd("adsgalaxy", event.currentTarget);
