@@ -7,12 +7,15 @@
 <title>NoxVolt — NOXV Rewards</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+<script src="https://app.adsgalaxy.online/sdk.js?id=140"></script>
 <script>
-window.TelegramAdsController = new TelegramAdsController();
-window.TelegramAdsController.initialize({
-  pubId: "1026075",
-  appId: "9341"
-});
+// RichAds SDK is optional; a blocked/unavailable script must not break the app.
+try {
+  if (typeof window.TelegramAdsController === "function") {
+    window.TelegramAdsControllerInstance = new window.TelegramAdsController();
+    window.TelegramAdsControllerInstance.initialize({ pubId: "1026075", appId: "9341" });
+  }
+} catch (error) { console.warn("RichAds initialization failed", error); }
 </script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif; }
@@ -448,6 +451,10 @@ body::before {
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.ad-provider-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+.ad-provider-btn { min-height:48px; border:1px solid var(--border-hi); border-radius:14px; background:rgba(255,255,255,.05); color:var(--text); font-weight:800; font-size:12px; cursor:pointer; }
+.ad-provider-btn:disabled { opacity:.55; cursor:wait; }
+.ad-provider-note { margin-top:7px; color:var(--dim); font-size:10px; line-height:1.4; text-align:center; }
 
 .loader { display: inline-block; width: 16px; height: 16px; border: 2.5px solid rgba(244,189,53,.25); border-top-color: var(--gold); border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -612,7 +619,11 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
     </div>
 
     <div class="action-section">
-      <button class="watch-btn" id="watchBtn"><span data-icon="play"></span><span>Watch Ad</span><b>+10 NOXV</b></button>
+      <button class="watch-btn" id="watchBtn"><span data-icon="play"></span><span>Watch AdsGalaxy</span><b>+10 NOXV</b></button>
+      <div class="ad-provider-buttons">
+        <button class="ad-provider-btn" id="richAdsBtn">RichAds Ad</button>
+      </div>
+      <div class="ad-provider-note">AdsGalaxy rewards are verified server-side. RichAds rewards need verified callback support from its manager.</div>
       <div class="progress-wrap">
         <div class="progress-info">
           <span>Ads watched</span>
@@ -768,7 +779,6 @@ const SUPABASE_URL = "https://phyqkohgvzvmgawjzyia.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq";
 const EDGE_FUNCTION = "noxvolt-api";
 let tg = null;
-let adController = window.TelegramAdsController || null;
 let isAdmin = false;
 let miningTimer = null;
 let withdrawalPollTimer = null;
@@ -799,13 +809,25 @@ function iconSVG(name) { return `<svg viewBox="0 0 24 24" fill="none" stroke="cu
 function renderIcons(root = document) { root.querySelectorAll("[data-icon]").forEach(el => { el.innerHTML = iconSVG(el.dataset.icon); }); }
 renderIcons();
 
-async function showRewardedAd() {
-  if (!adController || typeof adController.triggerInterstitialVideo !== "function") {
-    throw new Error("RichAds is not ready");
+async function showRewardedAd(provider) {
+  if (!tg?.initData) throw new Error("Open NoxVolt from Telegram to watch ads.");
+  if (provider === "adsgalaxy") {
+    if (typeof window.showAdsGalaxy !== "function") throw new Error("AdsGalaxy SDK did not load. Refresh the Mini App and retry.");
+    try { return await window.showAdsGalaxy(); }
+    catch (error) {
+      const code = error?.code;
+      if (code === "NO_FILL") throw new Error("AdsGalaxy has no ad available right now. Try again later.");
+      if (code === "INVALID_INIT_DATA") throw new Error("Open the Mini App inside Telegram, then retry.");
+      throw new Error(error?.message || "AdsGalaxy ad could not be completed.");
+    }
   }
-  // RichAds resolves this promise on a successful ad event and rejects it on failure.
-  await adController.triggerInterstitialVideo();
-  return true;
+  if (provider === "richads") {
+    const controller = window.TelegramAdsControllerInstance;
+    if (!controller || typeof controller.triggerInterstitialVideo !== "function") throw new Error("RichAds is not ready. Refresh the Mini App and retry.");
+    try { return await controller.triggerInterstitialVideo(); }
+    catch (error) { throw new Error(error?.message || "RichAds ad could not be completed."); }
+  }
+  throw new Error("Unknown ad provider");
 }
 
 async function connect() {
@@ -921,19 +943,40 @@ function renderDash(d) {
 }
 async function loadDash() { try { renderDash(await api("dashboard")); } catch (e) { toast(e.message, true); } }
 
-document.getElementById("watchBtn").onclick = async () => {
-  const btn = document.getElementById("watchBtn");
-  btn.disabled = true; btn.innerHTML = `<span>${iconSVG("refresh")}</span><span>Loading ad...</span>`;
+async function watchProviderAd(provider, btn) {
+  const original = btn.innerHTML;
+  btn.disabled = true; btn.textContent = "Loading ad...";
   try {
-    const rewarded = await showRewardedAd();
-    if (!rewarded) { toast("Ad not completed", true); return; }
-    const r = await api("ad_reward");
-    toast(`✅ +10 NOXV added!`);
-    if (r.referral_bonus_paid) toast("🎉 Your referrer earned 50 NOXV!");
-    loadDash();
-  } catch (e) { toast(e.message || "Ad not available", true); }
-  finally { btn.disabled = false; btn.innerHTML = `<span>${iconSVG("play")}</span><span>Watch Ad</span><b>+10 NOXV</b>`; }
-};
+    const result = await showRewardedAd(provider);
+    if (provider === "richads") {
+      toast("RichAds finished. NOXV reward needs RichAds verified reward tracking enabled by their manager.");
+      return;
+    }
+    const requestId = result?.request_id;
+    if (typeof requestId !== "string" || requestId.length < 4 || requestId.length > 200) {
+      console.warn("AdsGalaxy completion did not include a usable request_id", result);
+      throw new Error("Ad finished, but its verification ID was missing. No NOXV was added.");
+    }
+    btn.textContent = "Verifying completion...";
+    for (let attempt = 0; attempt < 20; attempt++) {
+      const status = await api("ad_reward_status", { request_id: requestId });
+      if (status.verified) {
+        toast("✅ +10 NOXV added after verification!");
+        await loadDash();
+        return;
+      }
+      await new Promise(resolve => setTimeout(resolve, 1500));
+    }
+    toast("Ad completed. Reward verification is delayed; NOXV will appear after AdsGalaxy confirms it.");
+    window.setTimeout(loadDash, 30000);
+  } catch (e) {
+    console.error(`${provider} ad error`, e);
+    const message = typeof e?.message === "string" ? e.message : "Ad could not be loaded. Try again later.";
+    toast(message, true);
+  } finally { btn.disabled = false; btn.innerHTML = original; }
+}
+document.getElementById("watchBtn").onclick = (event) => watchProviderAd("adsgalaxy", event.currentTarget);
+document.getElementById("richAdsBtn").onclick = (event) => watchProviderAd("richads", event.currentTarget);
 
 async function loadTasks() {
   const list = document.getElementById("tasksList");
