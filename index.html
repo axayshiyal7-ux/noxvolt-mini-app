@@ -8,15 +8,6 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
 <script src="https://app.adsgalaxy.online/sdk.js?id=140"></script>
-<script>
-// RichAds SDK is optional; a blocked/unavailable script must not break the app.
-try {
-  if (typeof window.TelegramAdsController === "function") {
-    window.TelegramAdsControllerInstance = new window.TelegramAdsController();
-    window.TelegramAdsControllerInstance.initialize({ pubId: "1026075", appId: "9341" });
-  }
-} catch (error) { console.warn("RichAds initialization failed", error); }
-</script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif; }
 
@@ -451,9 +442,9 @@ body::before {
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
-.ad-provider-buttons { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
-.ad-provider-btn { min-height:48px; border:1px solid var(--border-hi); border-radius:14px; background:rgba(255,255,255,.05); color:var(--text); font-weight:800; font-size:12px; cursor:pointer; }
-.ad-provider-btn:disabled { opacity:.55; cursor:wait; }
+.ad-provider-buttons { display:grid; grid-template-columns:1fr; gap:10px; margin-top:10px; }
+.watch-btn.ad-provider-btn { height:66px; min-height:66px; padding:12px 18px; border:1px solid rgba(255,255,255,.38); border-radius:18px; background:linear-gradient(135deg,#f6c84a,#e5aa1c); color:#2c2617; font-size:15px; font-weight:800; box-shadow:0 8px 20px rgba(194,143,27,.22),inset 0 1px rgba(255,255,255,.65); }
+.watch-btn.ad-provider-btn:disabled { opacity:.55; box-shadow:none; cursor:wait; }
 .ad-provider-note { margin-top:7px; color:var(--dim); font-size:10px; line-height:1.4; text-align:center; }
 
 .loader { display: inline-block; width: 16px; height: 16px; border: 2.5px solid rgba(244,189,53,.25); border-top-color: var(--gold); border-radius: 50%; animation: spin .7s linear infinite; margin-right: 8px; vertical-align: middle; }
@@ -621,7 +612,7 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
     <div class="action-section">
       <button class="watch-btn" id="watchBtn"><span data-icon="play"></span><span>Watch AdsGalaxy</span><b>+10 NOXV</b></button>
       <div class="ad-provider-buttons">
-        <button class="ad-provider-btn" id="richAdsBtn">RichAds Ad</button>
+        <button class="watch-btn ad-provider-btn" id="richAdsBtn"><span data-icon="play"></span><span>Watch RichAds</span></button>
       </div>
       <div class="ad-provider-note">AdsGalaxy rewards are verified server-side. RichAds rewards need verified callback support from its manager.</div>
       <div class="progress-wrap">
@@ -779,6 +770,8 @@ const SUPABASE_URL = "https://phyqkohgvzvmgawjzyia.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq";
 const EDGE_FUNCTION = "noxvolt-api";
 let tg = null;
+let richAdsController = null;
+let richAdsInitError = null;
 let isAdmin = false;
 let miningTimer = null;
 let withdrawalPollTimer = null;
@@ -809,6 +802,25 @@ function iconSVG(name) { return `<svg viewBox="0 0 24 24" fill="none" stroke="cu
 function renderIcons(root = document) { root.querySelectorAll("[data-icon]").forEach(el => { el.innerHTML = iconSVG(el.dataset.icon); }); }
 renderIcons();
 
+function initializeRichAds() {
+  if (richAdsController) return richAdsController;
+  try {
+    if (typeof window.TelegramAdsController !== "function") {
+      richAdsInitError = "RichAds library did not load. Refresh the Mini App and retry.";
+      return null;
+    }
+    richAdsController = new window.TelegramAdsController();
+    richAdsController.initialize({ pubId: "1026075", appId: "9341", debug: false });
+    richAdsInitError = null;
+    return richAdsController;
+  } catch (error) {
+    console.warn("RichAds initialization failed", error);
+    richAdsController = null;
+    richAdsInitError = error?.message || "RichAds could not initialize. Check the publisher/app IDs and SDK status.";
+    return null;
+  }
+}
+
 async function showRewardedAd(provider) {
   if (!tg?.initData) throw new Error("Open NoxVolt from Telegram to watch ads.");
   if (provider === "adsgalaxy") {
@@ -822,10 +834,17 @@ async function showRewardedAd(provider) {
     }
   }
   if (provider === "richads") {
-    const controller = window.TelegramAdsControllerInstance;
-    if (!controller || typeof controller.triggerInterstitialVideo !== "function") throw new Error("RichAds is not ready. Refresh the Mini App and retry.");
+    const controller = richAdsController || initializeRichAds();
+    if (!controller || typeof controller.triggerInterstitialVideo !== "function")
+      throw new Error(richAdsInitError || "RichAds SDK did not load. Refresh the Mini App and retry.");
     try { return await controller.triggerInterstitialVideo(); }
-    catch (error) { throw new Error(error?.message || "RichAds ad could not be completed."); }
+    catch (error) {
+      console.warn("RichAds rejected the ad request", error);
+      const detail = typeof error === "string" ? error : (error?.message || error?.reason || error?.code);
+      throw new Error(detail
+        ? `RichAds: ${String(detail).slice(0, 140)}`
+        : "RichAds rejected the request. Check that your RichAds Mini App is active and ads are available.");
+    }
   }
   throw new Error("Unknown ad provider");
 }
@@ -856,6 +875,7 @@ if (!tg.initData || tg.initData.length === 0) {
     retry.style.display = "inline-block";
     return;
   }
+  initializeRichAds();
 
   const u = tg.initDataUnsafe?.user;
   if (u) {
