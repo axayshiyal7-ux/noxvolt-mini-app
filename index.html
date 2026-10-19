@@ -612,7 +612,7 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
     </div>
 
     <div class="action-section">
-      <button class="watch-btn" id="watchBtn"><span data-icon="play"></span><span>Watch AdsGalaxy</span><b>+10 NOXV</b></button>
+      <button class="watch-btn" id="watchBtn"><span data-icon="play"></span><span>Watch AdsGalaxy</span><b>+5 NOXV</b></button>
       <div class="ad-provider-buttons">
         <button class="watch-btn ad-provider-btn" id="richAdsBtn"><span data-icon="play"></span><span>Watch RichAds</span></button>
         <button class="watch-btn ad-provider-btn giga-btn" id="gigaBtn" type="button"><span data-icon="play"></span><span>Watch GigaPub</span></button>
@@ -853,7 +853,7 @@ async function showRewardedAd(provider) {
     if (typeof window.showGiga !== "function")
       throw new Error("GigaPub SDK did not load. Refresh the Mini App and retry.");
     try {
-      await window.showGiga("main");
+      await window.showGiga();
       return { completed: true };
     } catch (error) {
       console.warn("GigaPub ad request failed", error);
@@ -1005,7 +1005,7 @@ async function watchProviderAd(provider, btn) {
     for (let attempt = 0; attempt < 20; attempt++) {
       const status = await api("ad_reward_status", { request_id: requestId });
       if (status.verified) {
-        toast("✅ +10 NOXV added after verification!");
+        toast("✅ +5 NOXV added after verification!");
         await loadDash();
         return;
       }
