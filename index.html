@@ -632,11 +632,11 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
         <div class="ad-pending-title"><span>Pending ad rewards</span><span class="ad-pending-total" id="adPendingTotal">0 NOXV</span></div>
         <div class="ad-pending-list" id="adPendingList"></div>
       </div>
-      <div class="ad-provider-note">AdsGalaxy rewards are verified server-side. RichAds and GigaPub rewards need server-side verification before NOXV is credited.</div>
+      <div class="ad-provider-note">Max 20 ad starts per UTC day · 30-second cooldown. AdsGalaxy rewards are verified server-side; RichAds and GigaPub need provider callbacks before credit.</div>
       <div class="progress-wrap">
         <div class="progress-info">
           <span>Ads watched</span>
-          <span><b id="adsToday">0</b> (No limit)</span>
+          <span><b id="adsToday">0</b> (Max 20/day)</span>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
       </div>
@@ -795,6 +795,7 @@ let miningTimer = null;
 let withdrawalPollTimer = null;
 let knownPendingWithdrawals = null;
 const AD_REWARD_NOXV = 5;
+const AD_DAILY_LIMIT = 20;
 
 const ICON_PATHS = {
   user: '<circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/>',
@@ -991,8 +992,9 @@ document.querySelectorAll(".nav-item").forEach(el => el.onclick = () => go(el.da
 function renderDash(d) {
   const b = Number(d.user?.balance || 0);
   document.getElementById("balanceBig").textContent = b.toFixed(2);
-  document.getElementById("adsToday").textContent = d.ads?.today_count || 0;
-  document.getElementById("progFill").style.width = Math.min(100, ((d.ads?.today_count || 0) % 20) * 5) + "%";
+  const adStartsToday = Number(d.ads?.today_starts ?? d.ads?.today_count ?? 0);
+  document.getElementById("adsToday").textContent = adStartsToday;
+  document.getElementById("progFill").style.width = Math.min(100, (adStartsToday / AD_DAILY_LIMIT) * 100) + "%";
 }
 async function loadDash() { try { renderDash(await api("dashboard")); } catch (e) { toast(e.message, true); } }
 
@@ -1049,6 +1051,10 @@ async function pollPendingAdRewards() {
         savePendingAdRewards(current);
         setAdRewardStatus("✅ AdsGalaxy verified your ad. +5 NOXV was credited.");
         changed = true;
+      } else if (result.rejected) {
+        savePendingAdRewards(getPendingAdRewards().filter(item => item.request_id !== row.request_id));
+        setAdRewardStatus("This ad reached the daily reward limit, so it was not credited.", true);
+        changed = true;
       }
     } catch { /* Keep the pending item and retry on the next poll. */ }
   }
@@ -1057,10 +1063,19 @@ async function pollPendingAdRewards() {
 
 async function watchProviderAd(provider, btn) {
   const original = btn.innerHTML;
+  let attemptId = null;
   btn.disabled = true; btn.textContent = "Loading ad...";
   try {
+    const attempt = await api("ad_begin", { provider });
+    attemptId = Number(attempt.attempt_id);
+    if (!Number.isSafeInteger(attemptId) || attemptId < 1) throw new Error("Could not start a tracked ad session. Please retry.");
+    const startedToday = Number(attempt.ads_started_today || 0);
+    document.getElementById("adsToday").textContent = startedToday;
+    document.getElementById("progFill").style.width = Math.min(100, (startedToday / AD_DAILY_LIMIT) * 100) + "%";
     setAdRewardStatus(`Opening ${provider === "adsgalaxy" ? "AdsGalaxy" : provider === "richads" ? "RichAds" : "GigaPub"} ad...`);
     const result = await showRewardedAd(provider);
+    await api("ad_finish", { attempt_id: attemptId, completed: true });
+    attemptId = null;
     if (provider === "gigapub") {
       if (!result?.completed) {
         setAdRewardStatus("GigaPub did not confirm ad completion. No reward was added.", true);
@@ -1090,10 +1105,16 @@ async function watchProviderAd(provider, btn) {
         await loadDash();
         return;
       }
+      if (status.rejected) {
+        savePendingAdRewards(getPendingAdRewards().filter(row => row.request_id !== requestId));
+        setAdRewardStatus("This ad reached the daily reward limit, so it was not credited.", true);
+        return;
+      }
       await new Promise(resolve => setTimeout(resolve, 1500));
     }
     setAdRewardStatus("Ad completed. +5 NOXV is pending while AdsGalaxy sends its signed confirmation. We will keep checking.");
   } catch (e) {
+    if (attemptId !== null) api("ad_finish", { attempt_id: attemptId, completed: false }).catch(() => {});
     console.error(`${provider} ad error`, e);
     const message = typeof e?.message === "string" ? e.message : "Ad could not be loaded. Try again later.";
     setAdRewardStatus(message, true);
