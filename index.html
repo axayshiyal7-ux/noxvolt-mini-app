@@ -587,6 +587,22 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
 .mining-card::before { animation: miningGlow 7s ease-in-out infinite alternate; }
 @keyframes miningGlow { from { transform:translate(-2%,0) rotate(0); opacity:.2; } to { transform:translate(2%,1%) rotate(10deg); opacity:.42; } }
 .status-pending { font-weight:900; }
+.leaderboard-card,.public-row { background:#fff; border:1px solid #e7ebf1; border-radius:16px; box-shadow:0 4px 14px rgba(31,41,55,.035); }
+.leaderboard-card { padding:14px 15px; margin-bottom:10px; }
+.leaderboard-row { display:flex; align-items:center; gap:11px; min-width:0; }
+.leaderboard-rank { width:30px; height:30px; border-radius:10px; display:grid; place-items:center; flex:none; background:#fff6dc; color:#946600; font-size:12px; font-weight:900; }
+.leaderboard-name { flex:1; min-width:0; color:#202938; font-size:13px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.leaderboard-activity { color:#778194; font-size:10px; margin-top:3px; }
+.leaderboard-earned { color:#1299a8; font-size:13px; font-weight:900; white-space:nowrap; }
+.rank-card { padding:16px; margin:0 0 14px; border:1px solid #ead28e; border-radius:18px; background:linear-gradient(120deg,#fff8e3,#fff); text-align:center; }
+.rank-card .rank-label { color:#778194; font-size:10px; font-weight:800; letter-spacing:1.3px; }
+.rank-card .rank-value { color:#a36e00; font-size:28px; font-weight:900; margin-top:3px; }
+.rank-card .rank-note { color:#778194; font-size:11px; margin-top:3px; }
+.public-row { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:13px 14px; margin-bottom:8px; }
+.public-row .public-user { color:#263244; font-size:12px; font-weight:800; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.public-row .public-meta { color:#7a8493; font-size:10px; margin-top:4px; }
+.public-row .public-amount { color:#a36e00; font-size:12px; font-weight:900; white-space:nowrap; }
+.live-caption { color:#7a8493; font-size:10px; margin:-5px 0 12px; }
 @media (max-width:380px) { .watch-btn { padding:15px 12px; font-size:14px; } .menu-card { padding:12px; } .menu-icon { width:40px; height:40px; } .admin-tab-button { padding:9px 9px!important; } }
 </style>
 </head>
@@ -662,6 +678,11 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
       <div class="menu-card" onclick="go('withdraw')">
         <div class="menu-icon green"><span data-icon="wallet"></span></div>
         <div class="menu-text"><div class="t">Withdraw</div><div class="s">Min 500 NOXV · TON network</div></div>
+        <div class="menu-arrow">›</div>
+      </div>
+      <div class="menu-card" onclick="go('leaderboard')">
+        <div class="menu-icon cyan"><span data-icon="trophy"></span></div>
+        <div class="menu-text"><div class="t">Leaderboard & payouts</div><div class="s">Top 20 earners · latest 10 paid withdrawals</div></div>
         <div class="menu-arrow">›</div>
       </div>
     </div>
@@ -752,6 +773,19 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
     <button class="btn-secondary" id="copyRefBtn" style="margin-top: 12px;"><span data-icon="copy"></span>Copy Link</button>
   </div>
 
+  <div id="page-leaderboard" class="page">
+    <div class="section-title"><span data-icon="trophy"></span>Leaderboard</div>
+    <div class="section-sub">Top 20 users by recorded lifetime earnings. This page refreshes every 30 seconds while open.</div>
+    <div id="myPublicRank" class="rank-card"><div class="rank-label">YOUR ALL-TIME RANK</div><div class="rank-value">—</div><div class="rank-note">Loading your verified rank</div></div>
+    <div class="field-label"><span data-icon="trophy"></span>Top 20 earners</div>
+    <div id="publicLeaderboard"><div class="empty"><span class="loader"></span>Loading leaderboard...</div></div>
+    <div class="field-label" style="margin-top:25px"><span data-icon="wallet"></span>Recent withdrawals</div>
+    <div class="section-sub">Latest 10 requests marked paid in the app. Pending requests are not shown.</div>
+    <div class="live-caption" id="publicPayoutUpdated">Updating when you open this page</div>
+    <div id="publicPaidWithdrawals"><div class="empty"><span class="loader"></span>Loading paid withdrawals...</div></div>
+    <div class="notice">Only requests marked paid in the app are listed; this page does not verify blockchain transactions. If none have been marked paid, this section stays empty. Wallet addresses and Telegram IDs are never shown.</div>
+  </div>
+
   <div id="page-admin" class="page">
     <div class="section-title"><span data-icon="settings"></span>Admin Panel</div>
     <div class="section-sub">Full control center</div>
@@ -795,6 +829,7 @@ let richAdsInitError = null;
 let isAdmin = false;
 let miningTimer = null;
 let withdrawalPollTimer = null;
+let publicLeaderboardPollTimer = null;
 let knownPendingWithdrawals = null;
 const AD_REWARD_NOXV = 5;
 const providerCooldownUntil = Object.create(null);
@@ -980,9 +1015,54 @@ function go(page) {
   if (page === "mining") loadMining();
   if (page === "withdraw") loadWithdraw();
   if (page === "referral") loadReferral();
+  if (page === "leaderboard") {
+    loadPublicLeaderboard();
+    if (publicLeaderboardPollTimer) clearInterval(publicLeaderboardPollTimer);
+    publicLeaderboardPollTimer = setInterval(() => {
+      if (document.getElementById("page-leaderboard")?.classList.contains("active") && !document.hidden) loadPublicLeaderboard(true);
+    }, 30000);
+  } else if (publicLeaderboardPollTimer) {
+    clearInterval(publicLeaderboardPollTimer);
+    publicLeaderboardPollTimer = null;
+  }
   if (page === "admin") adminTab('stats');
 }
 document.querySelectorAll(".nav-item").forEach(el => el.onclick = () => go(el.dataset.page));
+
+async function loadPublicLeaderboard(silent = false) {
+  const leaderboard = document.getElementById("publicLeaderboard");
+  const payouts = document.getElementById("publicPaidWithdrawals");
+  if (!silent) {
+    leaderboard.innerHTML = `<div class="empty"><span class="loader"></span>Loading leaderboard...</div>`;
+    payouts.innerHTML = `<div class="empty"><span class="loader"></span>Loading paid withdrawals...</div>`;
+  }
+  try {
+    const data = await api("public_leaderboard");
+    const rows = data.leaderboard || [];
+    leaderboard.innerHTML = rows.length ? rows.map((user, i) => {
+      const name = user.username ? `@${escapeHTML(user.username)}` : escapeHTML(user.first_name || "NoxVolt user");
+      const medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i + 1}`;
+      return `<div class="leaderboard-card"><div class="leaderboard-row"><span class="leaderboard-rank">${medal}</span><div style="flex:1;min-width:0"><div class="leaderboard-name">${name}</div><div class="leaderboard-activity">${Number(user.ads_watched_total || 0)} ads watched</div></div><span class="leaderboard-earned">${Number(user.total_earned || 0).toFixed(2)} NOXV</span></div></div>`;
+    }).join("") : `<div class="empty">No earned rewards yet. The leaderboard will appear as users earn.</div>`;
+
+    const rankBox = document.getElementById("myPublicRank");
+    rankBox.innerHTML = `<div class="rank-label">YOUR ALL-TIME RANK</div><div class="rank-value">${data.my_rank ? `#${Number(data.my_rank)}` : "—"}</div><div class="rank-note">${data.my_rank ? "Based on recorded lifetime earnings" : "Earn rewards to appear in the ranking"}</div>`;
+
+    const paid = data.recent_paid_withdrawals || [];
+    payouts.innerHTML = paid.length ? paid.map(row => {
+      const name = row.username ? `@${escapeHTML(row.username)}` : "NoxVolt user";
+      const paidAt = row.paid_at ? new Date(row.paid_at).toLocaleString() : "Paid";
+      return `<div class="public-row"><div style="min-width:0"><div class="public-user">${name}</div><div class="public-meta">Paid · ${escapeHTML(paidAt)}</div></div><span class="public-amount">${Number(row.amount || 0).toFixed(2)} NOXV</span></div>`;
+    }).join("") : `<div class="empty">No completed withdrawals to show yet.</div>`;
+    document.getElementById("publicPayoutUpdated").textContent = `Last refreshed ${new Date().toLocaleTimeString()}`;
+  } catch (error) {
+    if (!silent) {
+      leaderboard.innerHTML = `<div class="empty">Could not load leaderboard. Open the Mini App from Telegram and retry.</div>`;
+      payouts.innerHTML = `<div class="empty">Could not load paid withdrawals.</div>`;
+    }
+    console.warn("Public leaderboard refresh failed", error);
+  }
+}
 
 function renderDash(d) {
   const b = Number(d.user?.balance || 0);
