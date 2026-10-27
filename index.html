@@ -333,6 +333,7 @@ body::before {
   box-shadow: 0 6px 18px rgba(244,189,53,.26);
   transition: all .25s;
 }
+.mining-actions .btn svg { display:inline-block; width:18px; height:18px; vertical-align:middle; margin-right:6px; flex:none; }
 .mining-actions .btn:active { transform: scale(.97); }
 .mining-actions .btn:disabled { opacity: .4; box-shadow: none; cursor: not-allowed; }
 .mining-actions .btn.secondary {
@@ -431,16 +432,16 @@ body::before {
 }
 
 .toast {
-  position: fixed; top: auto; bottom: 82px; left: 50%;
-  transform: translateX(-50%) translateY(140px);
+  position: fixed; top: calc(env(safe-area-inset-top, 0px) + 70px); bottom: auto; left: 50%;
+  transform: translateX(-50%) translateY(-18px); opacity:0; pointer-events:none;
   background: linear-gradient(135deg, rgba(244,189,53,.95), rgba(255,220,112,.95));
   color: #fff; padding: 16px 26px;
   border-radius: 20px; font-size: 13.5px; font-weight: 700;
-  z-index: 999; transition: transform .4s cubic-bezier(.34,1.56,.64,1);
-  max-width: 90vw; text-align: center;
+  z-index: 9999; transition: transform .25s ease, opacity .25s ease;
+  width: max-content; max-width: min(92vw, 380px); text-align: center; line-height:1.45;
   box-shadow: 0 20px 60px rgba(244,189,53,.5);
 }
-.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.show { transform: translateX(-50%) translateY(0); opacity:1; }
 .toast.error { background: linear-gradient(135deg, #ef4444, #dc2626); }
 .ad-provider-buttons { display:grid; grid-template-columns:1fr; gap:4px; margin-top:10px; }
 .ad-provider-slot { display:grid; gap:0; }
@@ -524,6 +525,7 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
 .btn-secondary { background:#fff; border-color:#e4c66f; color:#805d0c; }
 .btn-secondary:active { background:#fff8e5; }
 .task-item,.mini-stat,.stat-box,.wd-item { background:#fff; border-color:#e7ebf1; backdrop-filter:none; box-shadow:0 4px 14px rgba(31,41,55,.035); }
+.task-item .tt { color:#202938; }
 .task-item .tr { color:#a06d00; }
 .task-item button { background:linear-gradient(135deg,#f1c64a,#dfaa24); color:#34280c; box-shadow:0 4px 12px rgba(194,143,27,.18); }
 .task-item button.done { background:#e8f6ef; color:#19764f; border-color:#c8e9d8; }
@@ -1136,18 +1138,31 @@ async function loadTasks() {
       div.className = "task-item";
       div.innerHTML = `<div><div class="tt">${escapeHTML(t.title)}</div><div class="tr">💰 +${Number(t.reward).toFixed(2)} NOXV</div></div><button class="${done ? 'done' : ''}">${done ? '✅ Done' : 'Join & Verify'}</button>`;
       list.appendChild(div);
+      let joinOpened = false;
       div.querySelector("button").onclick = async (ev) => {
         if (done) return;
-        const btn = ev.target;
-        if (tg) tg.openTelegramLink(t.link); else window.open(t.link, "_blank");
-        btn.textContent = "Verifying..."; btn.disabled = true;
-        setTimeout(async () => {
+        const btn = ev.currentTarget;
+        if (!joinOpened) {
           try {
-            const r = await api("task_complete", { task_id: t.id });
-            toast(`✅ +${r.reward} NOXV earned!`);
-            loadTasks(); loadDash();
-          } catch (e) { toast(e.message, true); btn.textContent = "Go & Claim"; btn.disabled = false; }
-        }, 4000);
+            if (tg) tg.openTelegramLink(t.link);
+            else window.open(t.link, "_blank", "noopener");
+            joinOpened = true;
+            btn.textContent = "Verify Membership";
+            toast("Join the channel, return here, then tap Verify Membership.");
+          } catch (e) { toast("Could not open the channel link. Check the task URL.", true); }
+          return;
+        }
+        btn.textContent = "Checking..."; btn.disabled = true;
+        try {
+          const r = await api("task_complete", { task_id: t.id });
+          toast(`✅ +${r.reward} NOXV earned!`);
+          await loadTasks();
+          await loadDash();
+        } catch (e) {
+          toast(e.message, true);
+          btn.textContent = "Verify Membership";
+          btn.disabled = false;
+        }
       };
     });
   } catch (e) { list.textContent = e.message; }
