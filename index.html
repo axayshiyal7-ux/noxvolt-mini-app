@@ -1161,12 +1161,16 @@ async function watchProviderAd(provider, btn) {
   btn.disabled = true; btn.textContent = "Loading ad...";
   try {
     const attempt = await api("ad_begin", { provider });
-    attemptId = Number(attempt.attempt_id);
-    if (!Number.isSafeInteger(attemptId) || attemptId < 1) throw new Error("Could not start a tracked ad session. Please retry.");
+    const returnedAttemptId = Number(attempt?.attempt_id);
+    if (Number.isSafeInteger(returnedAttemptId) && returnedAttemptId > 0) {
+      attemptId = returnedAttemptId;
+    } else if (!(attempt?.tracking === false && ["richads", "gigapub"].includes(provider))) {
+      throw new Error("Could not start an ad session. Refresh the app and retry.");
+    }
     const providerName = provider === "monetag" ? "Monetag" : provider === "gigapub" ? "GigaPub" : "RichAds";
     setAdRewardStatus(`Opening ${providerName} ad...`);
     const result = await showRewardedAd(provider, ymid);
-    await api("ad_finish", { attempt_id: attemptId, completed: true });
+    if (attemptId !== null) await api("ad_finish", { attempt_id: attemptId, completed: true });
     providerCooldownUntil[provider] = Date.now() + Number(attempt.cooldown_seconds || 5) * 1000;
     attemptId = null;
     if (provider === "richads") {
@@ -1538,7 +1542,6 @@ async function loadFlagged() {
 async function loadLogs() {
   const box = document.getElementById("logsList");
   box.innerHTML = `<div class="empty"><span class="loader"></span> Loading...</div>`;
-  try {
     const d = await api("admin_security_logs");
     const logs = d.logs || [];
     if (!logs.length) { box.innerHTML = `<div class="empty"><span class="big-icon">📜</span>No logs</div>`; return; }
