@@ -6,9 +6,8 @@
 <meta name="theme-color" content="#0a0614">
 <title>NoxVolt — NOXV Rewards</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script async src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-<script async src="https://libtl.com/sdk.js" data-zone="12127957" data-sdk="show_12127957"></script>
-<script async src="https://ad.gigapub.tech/script?id=8724"></script>
+<script src="https://ad.gigapub.tech/script?id=8724"></script>
+<script src="//libtl.com/sdk.js" data-zone="12127957" data-sdk="show_12127957"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif; }
 
@@ -448,7 +447,6 @@ body::before {
 .ad-provider-slot { display:grid; gap:0; }
 .provider-quota { text-align:right; margin:0 8px 6px; color:var(--dim); font-size:10px; font-weight:700; }
 .watch-btn.ad-provider-btn { height:66px; min-height:66px; padding:12px 18px; border:1px solid rgba(255,255,255,.38); border-radius:18px; background:linear-gradient(135deg,#f6c84a,#e5aa1c); color:#2c2617; font-size:15px; font-weight:800; box-shadow:0 8px 20px rgba(194,143,27,.22),inset 0 1px rgba(255,255,255,.65); }
-.watch-btn.ad-provider-btn.giga-btn { background:linear-gradient(135deg,#b9ed20,#78bd19); color:#18210a; }
 .ad-reward-status { display:none; margin-top:10px; padding:11px 13px; border:1px solid rgba(194,143,27,.22); border-radius:14px; background:#fffdf6; color:#657084; font-size:11px; line-height:1.45; }
 .ad-reward-status.show { display:block; }
 .ad-pending-card { display:none; margin-top:10px; padding:13px 14px; border:1px solid rgba(194,143,27,.25); border-radius:15px; background:linear-gradient(135deg,#fffdf6,#fff); box-shadow:0 6px 18px rgba(60,48,17,.05); }
@@ -642,21 +640,19 @@ body::before { background: radial-gradient(circle at 12% 0%, rgba(255,216,126,.2
     </div>
 
     <div class="action-section">
-      <button class="watch-btn ad-provider-btn" id="monetagBtn" type="button"><span data-icon="play"></span><span>Watch Monetag</span><b>+5 NOXV</b></button>
-      <div class="provider-quota">No daily limit · 5s cooldown after completion</div>
       <div class="ad-provider-buttons">
-        <div class="ad-provider-slot"><button class="watch-btn ad-provider-btn" id="richAdsBtn"><span data-icon="play"></span><span>Watch RichAds</span><b>+5 NOXV</b></button><div class="provider-quota">No daily limit · 5s cooldown after completion</div></div>
-        <div class="ad-provider-slot"><button class="watch-btn ad-provider-btn giga-btn" id="gigaBtn" type="button"><span data-icon="play"></span><span>Watch GigaPub</span><b>+5 NOXV</b></button><div class="provider-quota">No daily limit · 5s cooldown after completion</div></div>
+        <div class="ad-provider-slot"><button class="watch-btn ad-provider-btn" id="gigapubBtn" type="button"><span data-icon="play"></span><span>Watch GigaPub</span><b>+5 NOXV</b></button><div class="provider-quota">GigaPub · 5s cooldown after completion</div></div>
+        <div class="ad-provider-slot"><button class="watch-btn ad-provider-btn" id="monetagBtn" type="button"><span data-icon="play"></span><span>Watch Monetag</span><b>+5 NOXV</b></button><div class="provider-quota">Monetag · 5s cooldown after completion</div></div>
       </div>
       <div class="ad-reward-status" id="adRewardStatus" aria-live="polite"></div>
       <div class="ad-pending-card" id="adPendingCard" aria-live="polite">
         <div class="ad-pending-title"><span>Pending ad rewards</span><span class="ad-pending-total" id="adPendingTotal">0 NOXV</span></div>
         <div class="ad-pending-list" id="adPendingList"></div>
       </div>
-      <div class="ad-provider-note">No daily ad cap. Monetag rewards are credited after a verified postback. RichAds and GigaPub rewards remain pending until server-side verification is available.</div>
+      <div class="ad-provider-note">Each network has its own 5-second cooldown. Monetag rewards are credited after a verified postback. GigaPub rewards stay pending until its server-side callback is configured.</div>
       <div class="progress-wrap">
         <div class="progress-info">
-          <span>Monetag rewards credited today</span>
+          <span>Verified Monetag rewards today</span>
           <span><b id="adsToday">0</b></span>
         </div>
       </div>
@@ -826,9 +822,8 @@ const SUPABASE_URL = "https://phyqkohgvzvmgawjzyia.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_1PK7kV9Ew5ja82anz-fYLQ_ZO5SBivq";
 const EDGE_FUNCTION = "noxvolt-api";
 const MONETAG_MAIN_ZONE_ID = "12127957";
+const GIGAPUB_PROJECT_ID = "8724";
 let tg = null;
-let richAdsController = null;
-let richAdsInitError = null;
 let isAdmin = false;
 let miningTimer = null;
 let withdrawalPollTimer = null;
@@ -862,27 +857,13 @@ function iconSVG(name) { return `<svg viewBox="0 0 24 24" fill="none" stroke="cu
 function renderIcons(root = document) { root.querySelectorAll("[data-icon]").forEach(el => { el.innerHTML = iconSVG(el.dataset.icon); }); }
 renderIcons();
 
-function initializeRichAds() {
-  if (richAdsController) return richAdsController;
-  try {
-    if (typeof window.TelegramAdsController !== "function") {
-      richAdsInitError = "RichAds library did not load. Refresh the Mini App and retry.";
-      return null;
-    }
-    richAdsController = new window.TelegramAdsController();
-    richAdsController.initialize({ pubId: "1026075", appId: "9341", debug: false });
-    richAdsInitError = null;
-    return richAdsController;
-  } catch (error) {
-    console.warn("RichAds initialization failed", error);
-    richAdsController = null;
-    richAdsInitError = error?.message || "RichAds could not initialize. Check the publisher/app IDs and SDK status.";
-    return null;
-  }
-}
-
 async function showRewardedAd(provider, ymid = "") {
   if (!tg?.initData) throw new Error("Open NoxVolt from Telegram to watch ads.");
+  if (provider === "gigapub") {
+    if (typeof window.showGiga !== "function")
+      throw new Error(`GigaPub SDK for project ${GIGAPUB_PROJECT_ID} did not load. Reopen the Mini App and retry.`);
+    return await window.showGiga();
+  }
   if (provider === "monetag") {
     if (!/^\d{1,20}$/.test(MONETAG_MAIN_ZONE_ID))
       throw new Error("Finish Monetag setup first: add NoxVolt, create a Rewarded Interstitial tag, then set its main zone ID in the HTML.");
@@ -896,24 +877,6 @@ async function showRewardedAd(provider, ymid = "") {
       console.warn("Monetag ad request failed", error);
       throw new Error(error?.message || "Monetag could not verify this ad. No reward was added.");
     }
-  }
-  if (provider === "richads") {
-    const controller = richAdsController || initializeRichAds();
-    if (!controller || typeof controller.triggerInterstitialVideo !== "function")
-      throw new Error(richAdsInitError || "RichAds SDK did not load. Refresh the Mini App and retry.");
-    try { return await controller.triggerInterstitialVideo(); }
-    catch (error) {
-      console.warn("RichAds rejected the ad request", error);
-      const detail = typeof error === "string" ? error : (error?.message || error?.reason || error?.code);
-      throw new Error(detail
-        ? `RichAds: ${String(detail).slice(0, 140)}`
-        : "RichAds rejected the request. Check that your RichAds Mini App is active and ads are available.");
-    }
-  }
-  if (provider === "gigapub") {
-    if (typeof window.showGiga !== "function") throw new Error("GigaPub SDK did not load. Refresh the Mini App and retry.");
-    try { await window.showGiga("main"); return { completed: true }; }
-    catch (error) { throw new Error(error?.message || "GigaPub ad could not be completed."); }
   }
   throw new Error("Unknown ad provider");
 }
@@ -929,7 +892,7 @@ async function connect() {
     attempts++;
   }
 if (!window.Telegram || !window.Telegram.WebApp) {
-    msg.innerHTML = "⚠️ Telegram WebApp not loaded.<br><small>Open from Telegram menu button.</small>";
+    msg.innerHTML = '⚠️ Telegram WebApp not loaded.<br><small>Open NoxVolt inside Telegram using the Mini App link.</small><br><a href="https://t.me/NoxVoltEarn_bot/noxvoltminiapp" style="display:inline-block;margin-top:12px;color:#0879d1;font-weight:700">Open NoxVolt in Telegram</a>';
     msg.style.color = "#ef4444";
     retry.style.display = "inline-block";
     return;
@@ -944,8 +907,6 @@ if (!tg.initData || tg.initData.length === 0) {
     retry.style.display = "inline-block";
     return;
   }
-  initializeRichAds();
-
   const u = tg.initDataUnsafe?.user;
   if (u) {
     const fullName = [u.first_name, u.last_name].filter(Boolean).join(" ") || "User";
@@ -1086,7 +1047,7 @@ function adPendingStorageKey() {
 function getPendingAdRewards() {
   try {
     const rows = JSON.parse(localStorage.getItem(adPendingStorageKey()) || "[]");
-    return Array.isArray(rows) ? rows.filter(x => x && ["monetag", "richads", "gigapub"].includes(x.provider)) : [];
+    return Array.isArray(rows) ? rows.filter(x => x && ["monetag", "gigapub"].includes(x.provider)) : [];
   } catch { return []; }
 }
 function savePendingAdRewards(rows) {
@@ -1100,10 +1061,10 @@ function renderPendingAdRewards(rows = getPendingAdRewards()) {
   card.classList.toggle("show", rows.length > 0);
   document.getElementById("adPendingTotal").textContent = `${(rows.length * AD_REWARD_NOXV).toFixed(0)} NOXV`;
   list.innerHTML = rows.map(row => {
-    const provider = row.provider === "monetag" ? "Monetag" : row.provider === "gigapub" ? "GigaPub" : "RichAds";
+    const provider = row.provider === "monetag" ? "Monetag" : "GigaPub";
     const state = row.provider === "monetag"
       ? "Waiting for Monetag's verified reward postback"
-      : `${provider} server-side reward verification is not enabled yet`;
+      : "Waiting for GigaPub server-side reward verification";
     return `<div class="ad-pending-row"><div><b>${provider}</b><span class="state">${state}</span></div><span class="reward">+${AD_REWARD_NOXV} NOXV</span></div>`;
   }).join("");
 }
@@ -1161,26 +1122,16 @@ async function watchProviderAd(provider, btn) {
   btn.disabled = true; btn.textContent = "Loading ad...";
   try {
     const attempt = await api("ad_begin", { provider });
-    const returnedAttemptId = Number(attempt?.attempt_id);
-    if (Number.isSafeInteger(returnedAttemptId) && returnedAttemptId > 0) {
-      attemptId = returnedAttemptId;
-    } else if (!(attempt?.tracking === false && ["richads", "gigapub"].includes(provider))) {
-      throw new Error("Could not start an ad session. Refresh the app and retry.");
-    }
-    const providerName = provider === "monetag" ? "Monetag" : provider === "gigapub" ? "GigaPub" : "RichAds";
-    setAdRewardStatus(`Opening ${providerName} ad...`);
+    attemptId = Number(attempt.attempt_id);
+    if (!Number.isSafeInteger(attemptId) || attemptId < 1) throw new Error("Could not start a tracked ad session. Please retry.");
+    setAdRewardStatus(`Opening ${provider === "monetag" ? "Monetag" : "GigaPub"} ad...`);
     const result = await showRewardedAd(provider, ymid);
-    if (attemptId !== null) await api("ad_finish", { attempt_id: attemptId, completed: true });
+    await api("ad_finish", { attempt_id: attemptId, completed: true });
     providerCooldownUntil[provider] = Date.now() + Number(attempt.cooldown_seconds || 5) * 1000;
     attemptId = null;
-    if (provider === "richads") {
-      addPendingAdReward(provider);
-      setAdRewardStatus("RichAds ad completed. +5 NOXV is shown as pending; it will only be credited after RichAds enables a server callback.");
-      return;
-    }
     if (provider === "gigapub") {
       addPendingAdReward(provider);
-      setAdRewardStatus("GigaPub ad completed. The +5 NOXV reward is pending server-side verification.");
+      setAdRewardStatus("GigaPub ad completed. +5 NOXV is pending; it will be credited only after a verified GigaPub callback.");
       return;
     }
     if (result?.reward_event_type === "non_valued") {
@@ -1210,7 +1161,7 @@ async function watchProviderAd(provider, btn) {
     const message = typeof e?.message === "string" ? e.message : "Ad could not be loaded. Try again later.";
     setAdRewardStatus(message, true);
   } finally {
-    const providerName = provider === "monetag" ? "Monetag" : provider === "gigapub" ? "GigaPub" : "RichAds";
+    const providerName = provider === "monetag" ? "Monetag" : "GigaPub";
     while (Date.now() < (providerCooldownUntil[provider] || 0)) {
       btn.disabled = true;
       btn.textContent = `${providerName} · wait ${Math.ceil((providerCooldownUntil[provider] - Date.now()) / 1000)}s`;
@@ -1220,9 +1171,8 @@ async function watchProviderAd(provider, btn) {
     btn.innerHTML = original;
   }
 }
+document.getElementById("gigapubBtn").onclick = (event) => watchProviderAd("gigapub", event.currentTarget);
 document.getElementById("monetagBtn").onclick = (event) => watchProviderAd("monetag", event.currentTarget);
-document.getElementById("richAdsBtn").onclick = (event) => watchProviderAd("richads", event.currentTarget);
-document.getElementById("gigaBtn").onclick = (event) => watchProviderAd("gigapub", event.currentTarget);
 
 async function loadTasks() {
   const list = document.getElementById("tasksList");
@@ -1565,9 +1515,3 @@ connect();
 </script>
 </body>
 </html>
-
-
-
-
-
-
