@@ -6,9 +6,9 @@
 <meta name="theme-color" content="#0a0614">
 <title>NoxVolt — NOXV Rewards</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
-<script src="//libtl.com/sdk.js" data-zone="12127957" data-sdk="show_12127957"></script>
-<script src="https://ad.gigapub.tech/script?id=8724"></script>
+<script async src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
+<script async src="https://libtl.com/sdk.js" data-zone="12127957" data-sdk="show_12127957"></script>
+<script async src="https://ad.gigapub.tech/script?id=8724"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; font-family: -apple-system, "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif; }
 
@@ -1542,6 +1542,7 @@ async function loadFlagged() {
 async function loadLogs() {
   const box = document.getElementById("logsList");
   box.innerHTML = `<div class="empty"><span class="loader"></span> Loading...</div>`;
+  try {
     const d = await api("admin_security_logs");
     const logs = d.logs || [];
     if (!logs.length) { box.innerHTML = `<div class="empty"><span class="big-icon">📜</span>No logs</div>`; return; }
